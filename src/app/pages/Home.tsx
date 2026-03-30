@@ -356,7 +356,7 @@ export function Home() {
       <AboutSection/>
 
       {/* Shop By Category - Horizontal Carousel */}
-      <section className="py-1 bg-white">
+      <section className="py-8 bg-white">
         <div className="relative">
           <div className="flex overflow-x-auto scrollbar-hide">
             {[
@@ -416,7 +416,7 @@ export function Home() {
       </section>
 
       {/* Quote */}
-      <section className="py-1 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-start gap-6">
             <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center text-[#E92247]">
@@ -434,7 +434,7 @@ export function Home() {
       </section>
 
       {/* Story block */}
-      <section className="py-1 bg-gradient-to-r from-[#E92247]/10 to-white">
+      <section className="py-8 bg-gradient-to-r from-[#E92247]/10 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -466,7 +466,7 @@ export function Home() {
       </section>
 
       {/* Collections */}
-      <section className="py-1 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-10">
             Collections
@@ -514,7 +514,7 @@ export function Home() {
       </section>
 
       {/* Identity - Static Layout */}
-      <section className="py-1 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             {/* Left - Image Only */}
@@ -569,7 +569,7 @@ export function Home() {
       </section>
 
       {/* Video Gallery - Horizontal Scroll */}
-      <section className="py-1 bg-white">
+      <section className="py-8 bg-white">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex overflow-x-auto gap-4 pb-4 hide-scrollbar snap-x snap-mandatory">
             {[
@@ -605,7 +605,7 @@ export function Home() {
       </section>
 
       {/* Faces */}
-      <section className="py-1 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between gap-6 flex-wrap">
             <div>
@@ -648,7 +648,7 @@ export function Home() {
       </section>
 
       {/* Testimonials - BlueStone Style */}
-      <section className="py-1 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+      <section className="py-8 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4">
@@ -775,7 +775,7 @@ export function Home() {
       </section>
 
       {/* Details */}
-      <section className="py-1 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-serif text-gray-900">
@@ -811,7 +811,7 @@ export function Home() {
       </section>
 
       {/* Journal */}
-      <section className="py-1 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between gap-6 flex-wrap">
             <div>
@@ -880,7 +880,7 @@ export function Home() {
       </section>
 
       {/* Enquire Now */}
-      <section className="py-1 bg-gray-50">
+      <section className="py-8 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
@@ -964,7 +964,7 @@ export function Home() {
       </section>
 
       {/* Gold rate strip (bottom) */}
-      <section className="py-1 bg-black text-white">
+      <section className="py-8 bg-black text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-6 rounded-2xl border border-white/10 bg-white/5">
