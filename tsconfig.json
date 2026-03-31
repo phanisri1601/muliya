@@ -11,18 +11,13 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [{ "name": "next" }],
 
-    // ✅ Path alias config
-    "baseUrl": "./src",
     "paths": {
-      "@/*": ["*"]
-    },
-
-    // ✅ Fix for TypeScript deprecation error
-    "ignoreDeprecations": "6.0"
+      "@/*": ["./src/*"]
+    }
   },
 
   "include": [
@@ -30,7 +25,8 @@
     "global.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
 
   "exclude": ["node_modules"]
