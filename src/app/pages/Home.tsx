@@ -669,7 +669,7 @@ export function Home() {
                 {
                   name: "Akanksha Khanna",
                   age: "27",
-                  image: "/images/Testimonial-1.png",
+                  image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&q=80",
                   text: "Delighted with my engagement ring from Muliya! It's my dream ring. The craftsmanship is stunning and the purity assurance gives me complete confidence.",
                   rotate: -8,
                   translateY: 15,
@@ -677,7 +677,7 @@ export function Home() {
                 {
                   name: "Diksha Singh",
                   age: "29",
-                  image: "/images/Testimonial-2.png",
+                  image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
                   text: "I was worried about finding good quality jewellery online, but Muliya's customer service gave me full assurance. The delivery was super quick and the quality is certified.",
                   rotate: 5,
                   translateY: 5,
@@ -685,7 +685,7 @@ export function Home() {
                 {
                   name: "Nuton Mishra",
                   age: "33",
-                  image: "/images/Testimonial-3.png",
+                  image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=400&q=80",
                   text: "I got a Nazariya for my baby from Muliya. It's so cute seeing it on my little one's wrist, and it gives me a sense of security knowing it's pure gold.",
                   rotate: -4,
                   translateY: 20,
@@ -693,7 +693,7 @@ export function Home() {
                 {
                   name: "Divya Mishra",
                   age: "26",
-                  image: "/images/Testimonial-4.png",
+                  image: "https://images.unsplash.com/photo-1504194921103-f8b80cadd5e4?w=400&q=80",
                   text: "On Valentine's Day, my husband gifted me a necklace from Muliya, and I haven't taken it off ever since. Everyone asks me where it's from. I just LOVE how nice it looks on me!",
                   rotate: 7,
                   translateY: 0,
@@ -701,7 +701,7 @@ export function Home() {
                 {
                   name: "Priya Singh",
                   age: "34",
-                  image: "/images/Testimonial-5.png",
+                  image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=400&q=80",
                   text: "I had trouble finding jewellery that suited my minimalist style, but Muliya's sleek and elegant designs were exactly what I was looking for.",
                   rotate: -6,
                   translateY: 10,
@@ -709,7 +709,7 @@ export function Home() {
                 {
                   name: "Avni Sharma",
                   age: "27",
-                  image: "/images/Testimonial-6.png",
+                  image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80",
                   text: "Me and my friends love Muliya's unique designs. I love how their pieces add elegance to my outfits. Their jewellery is stylish, modern and a breath of fresh air.",
                   rotate: 4,
                   translateY: 18,
@@ -717,7 +717,7 @@ export function Home() {
                 {
                   name: "Sonaalee Semwal",
                   age: "28",
-                  image: "/images/Testimonial-7.png",
+                  image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80",
                   text: "I bought a bracelet from Muliya as a birthday gift from me to me. I love how versatile it is. If you want to buy yourself a gift, Muliya is the place to go!",
                   rotate: -5,
                   translateY: 8,
