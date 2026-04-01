@@ -579,7 +579,7 @@ export function Home() {
             >
               <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-amber-100 to-amber-50 shadow-xl">
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1617038260897-41a1f14a44ca?w=800&q=80"
+                  src="/images/piggybank.png"
                   alt="Gold Scheme - Save for your dream jewellery"
                   className="absolute inset-0 w-full h-full object-cover"
                 />

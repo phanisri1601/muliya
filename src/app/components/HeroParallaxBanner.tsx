@@ -81,7 +81,7 @@ export function HeroParallaxBanner() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
         >
           {/* TOP PANEL (Left on desktop) - 60% height on mobile, 50% width on desktop */}
           <div className="relative w-full lg:w-1/2 h-[60%] lg:h-full overflow-hidden bg-[#2a2a2a]">
@@ -91,7 +91,7 @@ export function HeroParallaxBanner() {
               initial={{ y: "-100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
-              transition={{ duration: 1.2, ease: smoothEase }}
+              transition={{ duration: 0.8, ease: smoothEase }}
             >
               <img
                 src={slide.leftImage}
@@ -108,7 +108,7 @@ export function HeroParallaxBanner() {
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -30, opacity: 0 }}
-                transition={{ duration: 0.8, delay: 1.0, ease: smoothEase }}
+                transition={{ duration: 0.6, delay: 0.5, ease: smoothEase }}
                 className="text-white/70 text-[10px] sm:text-xs tracking-[0.3em] sm:tracking-[0.4em] mb-3 sm:mb-6"
               >
                 {slide.eyebrow}
@@ -119,7 +119,7 @@ export function HeroParallaxBanner() {
                 initial={{ y: 60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -40, opacity: 0 }}
-                transition={{ duration: 1, delay: 1.2, ease: smoothEase }}
+                transition={{ duration: 0.7, delay: 0.7, ease: smoothEase }}
                 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-wide mb-2 sm:mb-4"
               >
                 {slide.title}
@@ -130,7 +130,7 @@ export function HeroParallaxBanner() {
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}
-                transition={{ duration: 0.8, delay: 1.4, ease: smoothEase }}
+                transition={{ duration: 0.6, delay: 0.9, ease: smoothEase }}
                 className="text-white/60 text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-4 sm:mb-8"
               >
                 {slide.subtitle}
@@ -146,7 +146,7 @@ export function HeroParallaxBanner() {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "-100%" }}
-              transition={{ duration: 1.2, ease: smoothEase }}
+              transition={{ duration: 0.8, ease: smoothEase }}
             />
 
             {/* Content Container */}
@@ -158,7 +158,7 @@ export function HeroParallaxBanner() {
                 initial={{ y: 60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -30, opacity: 0 }}
-                transition={{ duration: 1, delay: 0.3, ease: smoothEase }}
+                transition={{ duration: 0.7, delay: 0.2, ease: smoothEase }}
               >
                 {/* Arch frame container - circular top */}
                 <div className="relative w-full h-full overflow-hidden bg-[#c4b8a8]" style={{ borderRadius: '50% 50% 0 0 / 40% 40% 0 0' }}>
@@ -182,7 +182,7 @@ export function HeroParallaxBanner() {
                   initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.8, delay: 1.1, ease: smoothEase }}
+                  transition={{ duration: 0.6, delay: 0.6, ease: smoothEase }}
                   className="text-white/90 text-xs sm:text-sm leading-relaxed max-w-[200px] sm:max-w-xs lg:max-w-sm mb-3 lg:mb-6 lg:text-center hidden sm:block"
                 >
                   {slide.description}
@@ -193,7 +193,7 @@ export function HeroParallaxBanner() {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -10, opacity: 0 }}
-                  transition={{ duration: 0.8, delay: 1.3, ease: smoothEase }}
+                  transition={{ duration: 0.6, delay: 0.8, ease: smoothEase }}
                 >
                   <Link
                     href={slide.href}
