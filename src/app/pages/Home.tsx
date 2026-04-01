@@ -513,6 +513,96 @@ export function Home() {
         </div>
       </section>
 
+      {/* Gold Scheme Section */}
+      <section className="py-12 bg-gradient-to-br from-amber-50 via-white to-amber-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            {/* Left - Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-sm text-[#E92247] font-medium tracking-wide mb-2">SAVE & SHINE</p>
+              <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4">
+                Easy Jewellery Buying Plan
+              </h2>
+              <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                Start saving monthly and buy your dream jewellery when you're ready. 
+                Get bonus benefits on completion and enjoy flexible payment options.
+              </p>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-amber-100">
+                  <p className="text-2xl font-serif text-[#E92247]">11+1</p>
+                  <p className="text-xs text-gray-600 mt-1">Months Plan</p>
+                </div>
+                <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-amber-100">
+                  <p className="text-2xl font-serif text-[#E92247]">100%</p>
+                  <p className="text-xs text-gray-600 mt-1">Bonus</p>
+                </div>
+                <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-amber-100">
+                  <p className="text-2xl font-serif text-[#E92247]">0%</p>
+                  <p className="text-xs text-gray-600 mt-1">Interest</p>
+                </div>
+                <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-amber-100">
+                  <p className="text-2xl font-serif text-[#E92247]">BIS</p>
+                  <p className="text-xs text-gray-600 mt-1">Certified</p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                <Button
+                  size="lg"
+                  className="bg-[#E92247] hover:bg-[#E92247]/90"
+                  asChild
+                >
+                  <Link href="/policy/gold-scheme">
+                    Join Now
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <Link href="/policy/gold-scheme">Learn More</Link>
+                </Button>
+              </div>
+            </motion.div>
+
+            {/* Right - Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-amber-100 to-amber-50 shadow-xl">
+                <ImageWithFallback
+                  src="https://images.unsplash.com/photo-1617038260897-41a1f14a44ca?w=800&q=80"
+                  alt="Gold Scheme - Save for your dream jewellery"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                
+                {/* Floating badge */}
+                <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-[#E92247]/10 flex items-center justify-center">
+                      <TrendingUp className="w-6 h-6 text-[#E92247]" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900">Start with ₹1,000/month</p>
+                      <p className="text-sm text-gray-600">Flexible monthly contributions</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Identity - Static Layout */}
       <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

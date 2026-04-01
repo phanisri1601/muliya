@@ -74,7 +74,7 @@ export function Header() {
         <div className="flex items-center justify-between gap-6">
           <Link href="/" className="flex items-center">
             <img
-              src="/images/Muliya-Mascot-1.png"
+              src="/images/Logo-1.svg"
               alt="Muliya Gold & Diamonds"
               loading="eager"
               className="h-10 w-auto object-contain max-w-[160px]"
@@ -115,11 +115,8 @@ export function Header() {
                 placeholder="Search for gold jewellery, diamond jewellery and more"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-10 rounded-l-md border border-gray-200 pl-4 pr-11 text-sm outline-none focus:ring-2 focus:ring-[#E92247]/30"
+                className="w-full h-10 rounded-l-md border border-gray-200 pl-4 pr-4 text-sm outline-none focus:ring-2 focus:ring-[#E92247]/30"
               />
-              <div className="absolute right-10 top-0 h-full flex items-center pr-2 text-gray-400">
-                <Search className="w-4 h-4" />
-              </div>
             </div>
             <button
               type="submit"
@@ -141,7 +138,7 @@ export function Header() {
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2 text-[#E92247]">
                     <img
-                      src="/images/Muliya-Mascot-1.png"
+                      src="/images/Logo-1.svg"
                       alt="Muliya"
                       loading="eager"
                       className="h-7 w-auto object-contain"
