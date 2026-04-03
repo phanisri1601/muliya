@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/app/context/CartContext";
+import { Badge } from "./ui/badge";
 import {
   ShoppingCart,
   Heart,
@@ -64,7 +66,7 @@ const desktopNav = [
   { label: "Gold", href: "/products/rings", icon: Coins },
   { label: "Silver", href: "/products/silver", icon: Coins },
   { label: "Diamond", href: "/products/earrings", icon: Coins },
-  { label: "Collections", href: "/products", icon: Coins },
+  { label: "Collections", href: "/collections", icon: Coins },
   { label: "Showrooms", href: "/stores", icon: Store },
   { label: "Gallery", href: "/blog", icon: ImageIcon },
   { label: "Virtual Tour", href: "/blog", icon: Globe },
@@ -80,6 +82,7 @@ export function Header() {
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
   const router = useRouter();
   const [logoError, setLogoError] = useState(false);
+  const { totalItems } = useCart();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -147,6 +150,16 @@ export function Header() {
               <Search className="w-4 h-4" />
             </button>
           </form>
+
+          {/* Cart */}
+          <Link href="/cart" className="relative hidden lg:flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition-colors">
+            <ShoppingCart className="w-5 h-5 text-gray-700" />
+            {totalItems > 0 && (
+              <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-[#E92247] text-white border-0">
+                {totalItems}
+              </Badge>
+            )}
+          </Link>
 
           {/* Mobile Menu */}
           <div className="lg:hidden flex items-center gap-2">
@@ -415,7 +428,7 @@ export function Header() {
                                 {collectionsData.map((col) => (
                                   <Link
                                     key={col.slug}
-                                    href={`/products/${col.slug}`}
+                                    href={`/collections/${col.slug}`}
                                     className="relative rounded-xl overflow-hidden group cursor-pointer h-[120px]"
                                   >
                                     <img

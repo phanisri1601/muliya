@@ -473,11 +473,11 @@ export function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: "Amuliya Diamonds", desc: "Exquisite diamond craftsmanship", image: "/images/amuliya.png", slug: "amuliya-diamonds" },
-              { name: "Mahathi Antique Collection", desc: "Timeless antique designs", image: "/images/mahathi.png", slug: "mahathi-antique" },
+              { name: "Amuliya Diamonds", desc: "Exquisite diamond craftsmanship", image: "/images/amuliya.png", slug: "amuliya" },
+              { name: "Mahathi Antique Collection", desc: "Timeless antique designs", image: "/images/mahathi.png", slug: "mahathi" },
               { name: "Pouranik Collection", desc: "Heritage-inspired pieces", image: "/images/pournik.png", slug: "pouranik" },
               { name: "Muliya Silveriya", desc: "Premium silver jewellery", image: "/images/silveriya.png", slug: "silveriya" },
-              { name: "Nithya 18k Jewellery Series", desc: "Everyday elegance in 18k gold", image: "/images/nithya.png", slug: "nithya-18k" },
+              { name: "Nithya 18k Jewellery Series", desc: "Everyday elegance in 18k gold", image: "/images/nithya.png", slug: "nithya" },
               { name: "Mangalsutra Collection", desc: "Sacred bonds, beautiful designs", image: "/images/mangalsutra.png", slug: "mangalsutra" },
             ].map((col, idx) => (
               <motion.div
@@ -487,7 +487,7 @@ export function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.05 }}
               >
-                <Link href={`/products?collection=${col.slug}`}>
+                <Link href={`/collections/${col.slug}`}>
                   <div className="group cursor-pointer">
                     <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-purple-100 to-purple-50">
                       <ImageWithFallback
