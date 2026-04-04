@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/app/context/CartContext";
+import { useAuth } from "@/app/context/AuthContext";
 import { Badge } from "./ui/badge";
 import {
   ShoppingCart,
@@ -18,6 +19,7 @@ import {
   Globe,
   Video,
   MoreHorizontal,
+  LogOut,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -67,8 +69,8 @@ const desktopNav = [
   { label: "Silver", href: "/products/silver", icon: Coins },
   { label: "Diamond", href: "/products/earrings", icon: Coins },
   { label: "Collections", href: "/collections", icon: Coins },
-  { label: "Showrooms", href: "/stores", icon: Store },
-  { label: "Gallery", href: "/blog", icon: ImageIcon },
+  { label: "Showrooms", href: "/store-locator", icon: Store },
+  { label: "Gallery", href: "https://gallery.muliya.in", icon: ImageIcon },
   { label: "Virtual Tour", href: "/blog", icon: Globe },
   { label: "More", href: "/about", icon: MoreHorizontal },
 ] as const;
@@ -83,6 +85,7 @@ export function Header() {
   const router = useRouter();
   const [logoError, setLogoError] = useState(false);
   const { totalItems } = useCart();
+  const { user, isAuthenticated, logout } = useAuth();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -161,6 +164,40 @@ export function Header() {
             )}
           </Link>
 
+          {/* User Auth */}
+          {isAuthenticated ? (
+            <div className="hidden lg:flex items-center gap-2">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50">
+                <div className="w-8 h-8 bg-[#E92247] rounded-full flex items-center justify-center text-white font-medium">
+                  {user?.name.charAt(0).toUpperCase()}
+                </div>
+                <span className="text-sm font-medium text-gray-700">{user?.name}</span>
+              </div>
+              <button
+                onClick={logout}
+                className="p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-600"
+                title="Logout"
+              >
+                <LogOut className="w-5 h-5" />
+              </button>
+            </div>
+          ) : (
+            <div className="hidden lg:flex items-center gap-3">
+              <Link
+                href="/login"
+                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-[#E92247] transition-colors whitespace-nowrap"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/register"
+                className="px-5 py-2 text-sm font-medium bg-[#E92247] text-white rounded-full hover:bg-[#d11f3f] transition-colors whitespace-nowrap"
+              >
+                Register
+              </Link>
+            </div>
+          )}
+
           {/* Mobile Menu */}
           <div className="lg:hidden flex items-center gap-2">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -198,7 +235,7 @@ export function Header() {
                     </Link>
                   ))}
                   <Link
-                    href="/stores"
+                    href="/store-locator"
                     className="text-gray-700 hover:text-[#E92247] py-2 transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
