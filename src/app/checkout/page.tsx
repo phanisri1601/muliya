@@ -6,6 +6,7 @@ import { formatPrice } from "@/app/data/collections";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useRazorpay } from "react-razorpay";
 import { 
   ChevronLeft, 
   CreditCard, 
@@ -24,7 +25,8 @@ export default function CheckoutPage() {
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
   const [step, setStep] = useState<"shipping" | "payment" | "confirmation">("shipping");
-
+  const [paymentMethod, setPaymentMethod] = useState<"cod" | "card">("cod");
+  const { Razorpay } = useRazorpay();
   const [shippingDetails, setShippingDetails] = useState({
     firstName: "",
     lastName: "",
@@ -61,17 +63,86 @@ export default function CheckoutPage() {
     setStep("payment");
   };
 
+  const handleRazorpayPayment = () => {
+    if (!Razorpay) {
+      toast.error("Razorpay SDK failed to load");
+      return;
+    }
+
+    const options = {
+      key: "rzp_test_6lyQTyrcSZUJgZ", // Enter the Key ID generated from the Dashboard
+      amount: Math.round(totalPrice * 100), // Amount is in currency subunits (paise)
+      currency: "INR",
+      name: "Muliya Jewellery",
+      description: "Jewellery Purchase",
+      image: "/images/Logo-1.svg",
+      handler: async function (response: { razorpay_payment_id: string; razorpay_order_id?: string; razorpay_signature?: string }) {
+        console.log(response);
+        
+        // Create order data
+        const orderData = {
+          userId: "guest",
+          shippingDetails,
+          items: items.map((item) => ({
+            productId: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+          totalAmount: totalPrice,
+          delivery: "Card",
+          paymentStatus: "Confirmed",
+          razorpay_payment_id: response.razorpay_payment_id,
+        };
+
+        console.log("Order placed:", orderData);
+        
+        setIsProcessing(false);
+        setStep("confirmation");
+        clearCart();
+        toast.success("Payment successful! Order placed.");
+      },
+      prefill: {
+        name: `${shippingDetails.firstName} ${shippingDetails.lastName}`,
+        email: shippingDetails.email,
+        contact: shippingDetails.phone,
+      },
+      notes: {
+        address: `${shippingDetails.address}, ${shippingDetails.city}, ${shippingDetails.state} - ${shippingDetails.pincode}`,
+      },
+      theme: {
+        color: "#E92247",
+      },
+    };
+
+    const rzp = new Razorpay(options);
+    
+    rzp.on("payment.failed", function (response: { error: { description: string } }) {
+      toast.error(`Payment failed: ${response.error.description}`);
+      setIsProcessing(false);
+    });
+
+    rzp.open();
+  };
+
   const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsProcessing(true);
     
-    // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsProcessing(false);
-    setStep("confirmation");
-    clearCart();
-    toast.success("Order placed successfully!");
+    if (paymentMethod === "card") {
+      setIsProcessing(true);
+      handleRazorpayPayment();
+    } else {
+      // Cash on Delivery
+      setIsProcessing(true);
+      
+      // Simulate order processing
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      setIsProcessing(false);
+      setStep("confirmation");
+      clearCart();
+      toast.success("Order placed successfully!");
+    }
   };
 
   if (step === "confirmation") {
@@ -294,7 +365,8 @@ export default function CheckoutPage() {
                         type="radio"
                         name="payment"
                         id="cod"
-                        defaultChecked
+                        checked={paymentMethod === "cod"}
+                        onChange={() => setPaymentMethod("cod")}
                         className="w-4 h-4 text-[#E92247]"
                       />
                       <label htmlFor="cod" className="font-medium text-gray-900">
@@ -312,31 +384,17 @@ export default function CheckoutPage() {
                         type="radio"
                         name="payment"
                         id="card"
+                        checked={paymentMethod === "card"}
+                        onChange={() => setPaymentMethod("card")}
                         className="w-4 h-4 text-[#E92247]"
                       />
                       <label htmlFor="card" className="font-medium text-gray-900">
-                        Credit/Debit Card
+                        Credit/Debit Card (Razorpay)
                       </label>
                     </div>
-                    <div className="space-y-3 ml-7">
-                      <input
-                        type="text"
-                        placeholder="Card Number"
-                        className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#E92247]/20 focus:border-[#E92247] outline-none"
-                      />
-                      <div className="grid grid-cols-2 gap-3">
-                        <input
-                          type="text"
-                          placeholder="MM/YY"
-                          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#E92247]/20 focus:border-[#E92247] outline-none"
-                        />
-                        <input
-                          type="text"
-                          placeholder="CVV"
-                          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#E92247]/20 focus:border-[#E92247] outline-none"
-                        />
-                      </div>
-                    </div>
+                    <p className="text-sm text-gray-600 ml-7">
+                      Pay securely using Razorpay payment gateway.
+                    </p>
                   </div>
 
                   <div className="flex gap-4 mt-6">
@@ -352,7 +410,7 @@ export default function CheckoutPage() {
                       disabled={isProcessing}
                       className="flex-1 bg-[#E92247] text-white py-4 rounded-lg font-medium hover:bg-[#d11f3f] transition-colors disabled:opacity-50"
                     >
-                      {isProcessing ? "Processing..." : `Pay ${formatPrice(totalPrice)}`}
+                      {isProcessing ? "Processing..." : paymentMethod === "card" ? `Pay ${formatPrice(totalPrice)}` : "Place Order"}
                     </button>
                   </div>
                 </form>
