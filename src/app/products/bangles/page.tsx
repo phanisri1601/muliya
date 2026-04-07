@@ -1,0 +1,200 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { ChevronRight, ShoppingCart, Heart } from "lucide-react";
+import { useCart } from "@/app/context/CartContext";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  category: string;
+  description: string;
+  weight?: string;
+  purity?: string;
+}
+
+const bangles: Product[] = [
+  {
+    id: "bangle-001",
+    name: "Traditional Gold Bangles Set",
+    price: 65000,
+    originalPrice: 75000,
+    image: "/images/gold/Bangles.png",
+    category: "Gold Bangles",
+    description: "Classic set of 4 gold bangles with traditional design",
+    weight: "16.5 grams",
+    purity: "22K (916)"
+  },
+  {
+    id: "bangle-002",
+    name: "Diamond Studded Bangles",
+    price: 125000,
+    originalPrice: 145000,
+    image: "/images/diamond/Bangles.png",
+    category: "Diamond Bangles",
+    description: "Elegant single bangle with diamond embellishments",
+    weight: "14.2 grams",
+    purity: "18K"
+  },
+  {
+    id: "bangle-003",
+    name: "Temple Design Bangles",
+    price: 95000,
+    originalPrice: 110000,
+    image: "/images/gold/Bangles.png",
+    category: "Gold Bangles",
+    description: "Traditional temple jewelry style bangles pair",
+    weight: "22.8 grams",
+    purity: "22K (916)"
+  },
+  {
+    id: "bangle-004",
+    name: "Ruby Stone Bangles",
+    price: 85000,
+    originalPrice: 98000,
+    image: "/images/gold/Bangles.png",
+    category: "Gold Bangles",
+    description: "Beautiful bangles with ruby stone settings",
+    weight: "18.5 grams",
+    purity: "22K (916)"
+  },
+  {
+    id: "bangle-005",
+    name: "Antique Finish Bangles",
+    price: 75000,
+    originalPrice: 88000,
+    image: "/images/gold/Bangles.png",
+    category: "Gold Bangles",
+    description: "Vintage antique finish bangles with patterns",
+    weight: "19.2 grams",
+    purity: "22K (916)"
+  },
+  {
+    id: "bangle-006",
+    name: "Modern Diamond Bangles",
+    price: 165000,
+    originalPrice: 190000,
+    image: "/images/diamond/Bangles.png",
+    category: "Diamond Bangles",
+    description: "Contemporary design with brilliant diamonds",
+    weight: "15.5 grams",
+    purity: "18K"
+  },
+  {
+    id: "bangle-007",
+    name: "Plain Gold Bangles",
+    price: 45000,
+    originalPrice: 52000,
+    image: "/images/gold/Bangles.png",
+    category: "Gold Bangles",
+    description: "Simple elegant plain gold bangles set of 4",
+    weight: "12.5 grams",
+    purity: "22K (916)"
+  },
+  {
+    id: "bangle-008",
+    name: "Filigree Work Bangles",
+    price: 55000,
+    originalPrice: 65000,
+    image: "/images/gold/Bangles.png",
+    category: "Gold Bangles",
+    description: "Delicate filigree work bangles with lightweight design",
+    weight: "14.8 grams",
+    purity: "22K (916)"
+  },
+  {
+    id: "bangle-009",
+    name: "Bridal Bangles Set",
+    price: 145000,
+    originalPrice: 170000,
+    image: "/images/gold/Bangles.png",
+    category: "Gold Bangles",
+    description: "Bridal collection bangles with chura design",
+    weight: "28.8 grams",
+    purity: "22K (916)"
+  },
+  {
+    id: "bangle-010",
+    name: "Emerald Stone Bangles",
+    price: 98000,
+    originalPrice: 115000,
+    image: "/images/gold/Bangles.png",
+    category: "Gold Bangles",
+    description: "Elegant bangles with emerald stone settings",
+    weight: "17.5 grams",
+    purity: "22K (916)"
+  }
+];
+
+export default function BanglesPage() {
+  const { addToCart } = useCart();
+  const router = useRouter();
+
+  const handleAddToCart = (product: Product, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    addToCart({ id: product.id, name: product.name, price: product.price, originalPrice: product.originalPrice, image: product.image, collection: product.category, collectionSlug: "bangles" });
+    toast.success(`${product.name} added to cart!`);
+  };
+
+  const handleProductClick = (productId: string) => {
+    router.push(`/products/bangles/${productId}`);
+  };
+
+  return (
+    <main className="min-h-screen bg-white">
+      <div className="bg-gray-50 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <nav className="flex items-center gap-2 text-sm text-gray-600">
+            <Link href="/" className="hover:text-[#E92247] transition-colors">Home</Link>
+            <ChevronRight className="w-4 h-4" />
+            <Link href="/products/bangles" className="hover:text-[#E92247] transition-colors">Gold</Link>
+            <ChevronRight className="w-4 h-4" />
+            <span className="text-gray-900 font-medium">Bangles</span>
+          </nav>
+        </div>
+      </div>
+
+      <div className="relative bg-gradient-to-r from-amber-50 to-yellow-50 py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900 mb-4">Bangles</h1>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">The melodious sound of tradition. Discover our collection of exquisite gold and diamond bangles for every occasion.</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {bangles.map((bangle) => (
+            <div key={bangle.id} onClick={() => handleProductClick(bangle.id)} className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
+              <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
+                <Image src={bangle.image} alt={bangle.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                  <button onClick={(e) => handleAddToCart(bangle, e)} className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-[#E92247] hover:bg-[#E92247] hover:text-white transition-colors" title="Add to Cart"><ShoppingCart className="w-5 h-5" /></button>
+                  <button onClick={(e) => e.stopPropagation()} className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-[#E92247] transition-colors" title="Add to Wishlist"><Heart className="w-5 h-5" /></button>
+                </div>
+                <div className="absolute top-4 left-4"><span className="bg-[#E92247] text-white px-3 py-1 rounded-full text-xs font-medium">{bangle.category}</span></div>
+              </div>
+              <div className="p-5 flex flex-col flex-grow">
+                <h3 className="font-serif text-lg text-gray-900 mb-2 group-hover:text-[#E92247] transition-colors">{bangle.name}</h3>
+                <p className="text-gray-500 text-sm mb-3 line-clamp-2">{bangle.description}</p>
+                <div className="flex items-center gap-3 text-xs text-gray-400 mb-3"><span>{bangle.weight}</span><span>•</span><span>{bangle.purity}</span></div>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xl font-bold text-[#E92247]">₹{bangle.price.toLocaleString()}</span>
+                  {bangle.originalPrice && <span className="text-sm text-gray-400 line-through">₹{bangle.originalPrice.toLocaleString()}</span>}
+                </div>
+                <button onClick={(e) => handleAddToCart(bangle, e)} className="w-full flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-3 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium mt-auto"><ShoppingCart className="w-4 h-4" />Add to Cart</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </main>
+  );
+}
