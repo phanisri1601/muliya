@@ -375,6 +375,36 @@ export function Home() {
       </section> */}
       <HeroParallaxBanner />
 
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-serif text-gray-900 text-center">Trending Categories</h2>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            {[
+              { title: "Gold Earrings", href: "/products/earrings", image: "/images/categories/earings-c.png" },
+              { title: "Diamond Ring", href: "/products/diamond-rings", image: "/images/categories/ring-c.png" },
+              { title: "Gold Bangles", href: "/products/bangles", image: "/images/categories/bangles-c.png" },
+              { title: "Diamond Pendant", href: "/products/diamond-pendants", image: "/images/categories/pendent-c.png" },
+              { title: "Mangalsutra", href: "/products/mangalsutra", image: "/images/categories/mangalsutra-c.png" },
+            ].map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="group relative overflow-hidden rounded-none border border-gray-200 bg-white shadow-sm"
+              >
+                <div className="relative aspect-[4/5]">
+                  <ImageWithFallback src={item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
+                  <div className="absolute inset-x-0 bottom-0 px-3 py-3 bg-gradient-to-t from-black/60 to-transparent">
+                    <p className="text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-white text-center drop-shadow">
+                      {item.title}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-[#f6f2ec] my-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2">
