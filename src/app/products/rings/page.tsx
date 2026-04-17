@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronRight, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { ImageWithFallbackNext } from "@/app/components/ImageWithFallbackNext";
+
+const formatINR = (value: number) => new Intl.NumberFormat("en-IN").format(value);
+
+const BANNER_SRC = "/category/Gemini_Generated_Image_uacnh2uacnh2uacn.png";
 
 interface Product {
   id: string;
@@ -174,13 +178,17 @@ export default function RingsPage() {
       </div>
 
       {/* Hero Banner */}
-      <div className="relative bg-gradient-to-r from-amber-50 to-yellow-50 py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative bg-gradient-to-r from-amber-50 to-yellow-50 py-16 md:py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallbackNext src={BANNER_SRC} alt="Rings banner" fill className="object-cover" />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-4 drop-shadow">
               Rings
             </h1>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-white/90 text-lg max-w-2xl mx-auto drop-shadow">
               Discover our exquisite collection of gold and diamond rings. From traditional designs to contemporary styles, find the perfect ring for every occasion.
             </p>
           </div>
@@ -198,7 +206,7 @@ export default function RingsPage() {
             >
               {/* Image Container */}
               <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
-                <Image
+                <ImageWithFallbackNext
                   src={ring.image}
                   alt={ring.name}
                   fill
@@ -248,11 +256,11 @@ export default function RingsPage() {
                 {/* Price */}
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-xl font-bold text-[#E92247]">
-                    ₹{ring.price.toLocaleString()}
+                    ₹{formatINR(ring.price)}
                   </span>
                   {ring.originalPrice && (
                     <span className="text-sm text-gray-400 line-through">
-                      ₹{ring.originalPrice.toLocaleString()}
+                      ₹{formatINR(ring.originalPrice)}
                     </span>
                   )}
                 </div>

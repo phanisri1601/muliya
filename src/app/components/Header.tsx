@@ -32,27 +32,99 @@ import {
 } from "./ui/sheet";
 
 const categories = [
-  { name: "Rings", slug: "rings", image: "/images/gold/Rings.png" },
-  { name: "Earrings", slug: "earrings", image: "/images/gold/Earrings.png" },
-  { name: "Pendants", slug: "pendants", image: "/images/gold/Pendants.png" },
-  { name: "Necklaces", slug: "necklaces", image: "/images/gold/Necklaces.png" },
-  { name: "Haarams", slug: "haarams", image: "/images/gold/Haarams.png" },
-  { name: "Kadaas", slug: "kadaas", image: "/images/gold/Kadaas.png" },
-  { name: "Mangalsutra", slug: "mangalsutra", image: "/images/gold/Mangalsutra.png" },
-  { name: "Bangles", slug: "bangles", image: "/images/gold/Bangles.png" },
-  { name: "Chain", slug: "chain", image: "/images/gold/Chain.png" },
-  { name: "Bracelets", slug: "bracelets", image: "/images/gold/Bracelets.png" },
-  { name: "Silver", slug: "silver", image: "/images/gold/Silver.png" },
-  { name: "Watches", slug: "watches", image: "/images/gold/Watches.png" },
+  {
+    name: "Rings",
+    slug: "rings",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn.png",
+  },
+  {
+    name: "Earrings",
+    slug: "earrings",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (1).png",
+  },
+  {
+    name: "Pendants",
+    slug: "pendants",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (2).png",
+  },
+  {
+    name: "Necklaces",
+    slug: "necklaces",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (3).png",
+  },
+  {
+    name: "Haarams",
+    slug: "haarams",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (4).png",
+  },
+  {
+    name: "Kadaas",
+    slug: "kadaas",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (5).png",
+  },
+  {
+    name: "Mangalsutra",
+    slug: "mangalsutra",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (6).png",
+  },
+  {
+    name: "Bangles",
+    slug: "bangles",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (7).png",
+  },
+  {
+    name: "Chain",
+    slug: "chain",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (8).png",
+  },
+  {
+    name: "Bracelets",
+    slug: "bracelets",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (9).png",
+  },
+  {
+    name: "Silver",
+    slug: "silver",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (10).png",
+  },
+  {
+    name: "Watches",
+    slug: "watches",
+    image: "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (11).png",
+  },
 ];
 
 const diamondCategories = [
-  { name: "Rings", slug: "rings", image: "/images/diamond/Rings.png" },
-  { name: "Earrings", slug: "earrings", image: "/images/diamond/Earrings.png" },
-  { name: "Pendants", slug: "pendants", image: "/images/diamond/Pendants.png" },
-  { name: "Necklaces", slug: "necklaces", image: "/images/diamond/Necklaces.png" },
-  { name: "Bangles", slug: "bangles", image: "/images/diamond/Bangles.png" },
-  { name: "Bracelets", slug: "bracelets", image: "/images/diamond/Bracelets.png" },
+  {
+    name: "Rings",
+    slug: "rings",
+    image: "/images/daimond/diamond-ring.jpeg",
+  },
+  {
+    name: "Earrings",
+    slug: "earrings",
+    image: "/images/daimond/diamond-ring.jpeg",
+  },
+  {
+    name: "Pendants",
+    slug: "pendants",
+    image: "/images/daimond/diamond-pendant.jpeg",
+  },
+  {
+    name: "Necklaces",
+    slug: "necklaces",
+    image: "/images/daimond/diamond-chain.jpeg",
+  },
+  {
+    name: "Bangles",
+    slug: "bangles",
+    image: "/images/daimond/diamond- bangles.jpeg",
+  },
+  {
+    name: "Bracelets",
+    slug: "bracelets",
+    image: "/images/daimond/diamond-brcelet .jpeg",
+  },
 ];
 
 const collectionsData = [
@@ -82,10 +154,83 @@ export function Header() {
   const [diamondDropdownOpen, setDiamondDropdownOpen] = useState(false);
   const [collectionsDropdownOpen, setCollectionsDropdownOpen] = useState(false);
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
+  const [goldTab, setGoldTab] = useState<
+    "Category" | "Price" | "Occasion" | "Gold Coin" | "Men" | "Metal"
+  >("Category");
+  const [diamondTab, setDiamondTab] = useState<
+    "Category" | "Price" | "Occasion" | "Gold Coin" | "Men" | "Metal"
+  >("Category");
   const router = useRouter();
   const [logoError, setLogoError] = useState(false);
   const { totalItems } = useCart();
   const { user, isAuthenticated, logout } = useAuth();
+
+  const megaTabs = [
+    "Category",
+    "Price",
+    "Occasion",
+    "Gold Coin",
+    "Men",
+    "Metal",
+  ] as const;
+
+  const goldTabContent = {
+    Category: categories.slice(0, 12).map((c) => ({
+      label: c.name,
+      href: `/products/${c.slug}`,
+      image: c.image,
+    })),
+    Price: [
+      { label: "<25K", href: "/products", image: "/images/ring-3.jpg" },
+      { label: "25K - 50K", href: "/products", image: "/images/earring-1.jpg" },
+      { label: "50K - 1L", href: "/products", image: "/images/ring-7.jpg" },
+      { label: "1L & Above", href: "/products", image: "/images/ring-10.jpg" },
+    ],
+    Occasion: [
+      { label: "Office Wear", href: "/products", image: "/images/closeup-shot-female-wearing-beautiful-silver-necklace-with-diamond-pendant.jpg" },
+      { label: "Modern Wear", href: "/products", image: "/images/young-model-demonstrating-expensive-jewelry.jpg" },
+      { label: "Casual Wear", href: "/products", image: "/images/luxury-jewellery-display.jpg" },
+      { label: "Traditional Wear", href: "/products", image: "/images/shiny-gemstone-necklace-reflects-elegance-glamour-generated-by-ai.jpg" },
+    ],
+    "Gold Coin": [
+      { label: "Special Coins", href: "/products", },
+      { label: "1 Gram", href: "/products", },
+      { label: "2 Gram", href: "/products", },
+      { label: "4 Gram", href: "/products", },
+      { label: "5 Gram", href: "/products", },
+      { label: "8 Gram", href: "/products", },
+      { label: "10 Gram", href: "/products", },
+      { label: "25 Gram", href: "/products",  },
+      { label: "50 Gram", href: "/products",  },
+      { label: "100 Gram", href: "/products",  },
+    ],
+    Men: [
+      { label: "Men's Bracelets", href: "/products/bracelets",  },
+      { label: "Men's Chains", href: "/products/chain", },
+      { label: "Men's Engagement Rings", href: "/products/rings", },
+      { label: "Men's Kadaas", href: "/products/kadaas",  },
+      { label: "Men's Pendants", href: "/products/pendants",},
+      { label: "Men's Rings", href: "/products/rings", },
+    ],
+    Metal: [
+      { label: "Rose", href: "/products", swatch: "#D8A39D" },
+      { label: "White", href: "/products", swatch: "#E5E7EB" },
+      { label: "Yellow", href: "/products", swatch: "#F3D58A" },
+    ],
+  } as const;
+
+  const diamondTabContent = {
+    Category: diamondCategories.map((c) => ({
+      label: c.name,
+      href: `/products/diamond-${c.slug}`,
+      image: c.image,
+    })),
+    Price: goldTabContent.Price,
+    Occasion: goldTabContent.Occasion,
+    "Gold Coin": goldTabContent["Gold Coin"],
+    Men: goldTabContent.Men,
+    Metal: goldTabContent.Metal,
+  } as const;
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,7 +261,7 @@ export function Header() {
           </Link>
 
           <div className="hidden lg:flex items-center gap-10 text-sm text-gray-700">
-            <Link
+            {/* <Link
               href="/policy/gold-scheme"
               className="flex items-center gap-2 hover:text-[#E92247] transition-colors"
             >
@@ -129,7 +274,7 @@ export function Header() {
             >
               <Video className="w-4 h-4 text-[#E92247]" />
               <span>Scheme Payments</span>
-            </Link>
+            </Link> */}
           </div>
 
           {/* Search */}
@@ -308,68 +453,152 @@ export function Header() {
                     {/* Gold Dropdown */}
                     {isGold && goldDropdownOpen && (
                       <div className="absolute top-full left-0 pt-2 z-50">
-                        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden w-[1000px]">
-                          {/* Header */}
-                          <div className="bg-gradient-to-r from-amber-50 to-white px-8 py-4 border-b border-gray-100">
-                            <p className="text-[#8B4513] font-medium text-base">Shop by Category</p>
-                          </div>
-                          
+                        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden w-[1040px]">
                           <div className="flex">
-                            {/* Categories Grid - Left Side */}
-                            <div className="flex-1 p-6">
-                              <div className="grid grid-cols-3 gap-y-6">
-                                {categories.slice(0, 10).map((cat, idx) => {
-                                  const isLastRow = idx >= 9;
-                                  return (
-                                    <Link
-                                      key={cat.slug}
-                                      href={`/products/${cat.slug}`}
-                                      className={`flex items-center gap-4 py-3 px-3 rounded-lg hover:bg-gray-50 transition-all duration-200 group ${!isLastRow ? 'border-b border-gray-100' : ''}`}
-                                    >
-                                      <div className="w-16 h-16 flex items-center justify-center overflow-hidden">
-                                        <img
-                                          src={cat.image}
-                                          alt={cat.name}
-                                          className="w-14 h-14 object-contain"
-                                          onError={(e) => {
-                                            (e.target as HTMLImageElement).src = "/images/ringwithperson.png";
-                                          }}
-                                        />
-                                      </div>
-                                      <span className="text-[#8B4513] text-base font-medium group-hover:text-[#E92247] transition-colors">
-                                        {cat.name}
-                                      </span>
-                                    </Link>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                            
-                            {/* Vertical Divider */}
-                            <div className="w-px bg-gray-200 my-6" />
-                            
-                            {/* Featured Image - Right Side */}
+                            {/* Promo Image - Left */}
                             <div className="w-[320px] p-6 flex-shrink-0">
-                              <div className="relative h-full min-h-[380px] rounded-xl overflow-hidden group cursor-pointer">
+                              <div className="relative h-full min-h-[420px] rounded-xl overflow-hidden group cursor-pointer">
                                 <img
-                                  src="/images/gold/featured-necklace.png"
+                                  src="/images/Gemini_Generated_Image_hhlctbhhlctbhhlc.png"
                                   alt="Featured Gold Collection"
                                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                   onError={(e) => {
-                                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=80";
+                                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80";
                                   }}
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
                                 <div className="absolute bottom-6 left-6 right-6">
-                                  <p className="text-white font-serif text-2xl mb-2">New Collection</p>
-                                  <p className="text-white/80 text-base">Explore our latest designs</p>
-                                  <div className="mt-4 inline-flex items-center gap-2 text-white/90 text-sm">
-                                    <span>View All</span>
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                  </div>
+                                  <p className="text-white font-serif text-2xl mb-1">Intricately handcrafted</p>
+                                  <p className="text-white/85 text-sm">Explore our latest designs</p>
                                 </div>
+                              </div>
+                            </div>
+
+                            {/* Divider */}
+                            <div className="w-px bg-gray-200 my-6" />
+
+                            {/* Content */}
+                            <div className="flex-1 p-6">
+                              {/* Tabs */}
+                              <div className="flex items-center gap-6 border-b border-gray-100 pb-3">
+                                {megaTabs.map((t) => (
+                                  <button
+                                    key={t}
+                                    type="button"
+                                    onMouseEnter={() => setGoldTab(t)}
+                                    className={
+                                      "text-sm font-medium transition-colors px-1 pb-2 -mb-[9px] border-b-2 " +
+                                      (goldTab === t
+                                        ? "text-[#8B4513] border-[#8B4513]"
+                                        : "text-gray-600 border-transparent hover:text-[#8B4513]")
+                                    }
+                                  >
+                                    {t}
+                                  </button>
+                                ))}
+                              </div>
+
+                              {/* Panel */}
+                              <div className="pt-5">
+                                {goldTab === "Category" && (
+                                  <div className="grid grid-cols-3 gap-y-4">
+                                    {goldTabContent.Category.map((it) => (
+                                      <Link
+                                        key={it.href}
+                                        href={it.href}
+                                        className="flex items-center py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                      >
+                                        {it.image ? (
+                                          <img
+                                            src={it.image}
+                                            alt={it.label}
+                                            className="w-10 h-10 rounded-md object-cover mr-3 border border-gray-100"
+                                            loading="lazy"
+                                          />
+                                        ) : null}
+                                        <span className="text-[#8B4513] text-sm font-medium group-hover:text-[#E92247] transition-colors">
+                                          {it.label}
+                                        </span>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {goldTab === "Price" && (
+                                  <div className="grid grid-cols-4 gap-4">
+                                    {goldTabContent.Price.map((it) => (
+                                      <Link
+                                        key={it.label}
+                                        href={it.href}
+                                        className="group rounded-xl border border-gray-100 hover:border-[#8B4513]/30 hover:shadow-sm transition-all px-3 py-3 text-center"
+                                      >
+                                        <p className="text-[#8B4513] font-medium text-sm">{it.label}</p>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {goldTab === "Occasion" && (
+                                  <div className="grid grid-cols-4 gap-4">
+                                    {goldTabContent.Occasion.map((it) => (
+                                      <Link
+                                        key={it.label}
+                                        href={it.href}
+                                        className="group rounded-xl border border-gray-100 hover:border-[#8B4513]/30 hover:shadow-sm transition-all px-3 py-3 text-center"
+                                      >
+                                        <p className="text-[#8B4513] font-medium text-sm">{it.label}</p>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {goldTab === "Gold Coin" && (
+                                  <div className="grid grid-cols-3 gap-y-4">
+                                    {goldTabContent["Gold Coin"].map((it) => (
+                                      <Link
+                                        key={it.label}
+                                        href={it.href}
+                                        className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors"
+                                      >
+                                        <div className="w-2 h-2 rounded-full bg-amber-300/80" />
+                                        <span className="text-[#8B4513] text-sm font-medium">{it.label}</span>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {goldTab === "Men" && (
+                                  <div className="grid grid-cols-3 gap-y-4">
+                                    {goldTabContent.Men.map((it) => (
+                                      <Link
+                                        key={it.label}
+                                        href={it.href}
+                                        className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors"
+                                      >
+                                        <div className="w-2 h-2 rounded-full bg-gray-400/70" />
+                                        <span className="text-[#8B4513] text-sm font-medium">{it.label}</span>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {goldTab === "Metal" && (
+                                  <div className="grid grid-cols-3 gap-4 max-w-[420px]">
+                                    {goldTabContent.Metal.map((it) => (
+                                      <Link
+                                        key={it.label}
+                                        href={it.href}
+                                        className="flex items-center gap-3 py-3 px-3 rounded-xl border border-gray-100 hover:border-[#8B4513]/30 hover:shadow-sm transition-all"
+                                      >
+                                        <div
+                                          className="w-5 h-5 rounded-full border border-gray-200"
+                                          style={{ backgroundColor: it.swatch }}
+                                        />
+                                        <span className="text-[#8B4513] text-sm font-medium">{it.label}</span>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -380,68 +609,156 @@ export function Header() {
                     {/* Diamond Dropdown */}
                     {isDiamond && diamondDropdownOpen && (
                       <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50">
-                        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden w-[800px]">
-                          {/* Header */}
-                          <div className="bg-gradient-to-r from-blue-50 to-white px-8 py-4 border-b border-gray-100">
-                            <p className="text-[#1e3a5f] font-medium text-base">Diamond Collection</p>
-                          </div>
-                          
+                        <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden w-[1040px]">
                           <div className="flex">
-                            {/* Categories Grid - Left Side */}
-                            <div className="flex-1 p-6">
-                              <div className="grid grid-cols-2 gap-y-4">
-                                {diamondCategories.map((cat, idx) => {
-                                  const isLastRow = idx >= 4;
-                                  return (
-                                    <Link
-                                      key={cat.slug}
-                                      href={`/products/${cat.slug}`}
-                                      className={`flex items-center gap-4 py-3 px-3 rounded-lg hover:bg-gray-50 transition-all duration-200 group ${!isLastRow ? 'border-b border-gray-100' : ''}`}
-                                    >
-                                      <div className="w-16 h-16 flex items-center justify-center overflow-hidden">
-                                        <img
-                                          src={cat.image}
-                                          alt={cat.name}
-                                          className="w-14 h-14 object-contain"
-                                          onError={(e) => {
-                                            (e.target as HTMLImageElement).src = "/images/ringwithperson.png";
-                                          }}
-                                        />
-                                      </div>
-                                      <span className="text-[#1e3a5f] text-base font-medium group-hover:text-[#E92247] transition-colors">
-                                        {cat.name}
-                                      </span>
-                                    </Link>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                            
-                            {/* Vertical Divider */}
-                            <div className="w-px bg-gray-200 my-6" />
-                            
-                            {/* Featured Image - Right Side */}
-                            <div className="w-[280px] p-6 flex-shrink-0">
-                              <div className="relative h-full min-h-[300px] rounded-xl overflow-hidden group cursor-pointer">
+                            {/* Promo Image - Left */}
+                            <div className="w-[320px] p-6 flex-shrink-0">
+                              <div className="relative h-full min-h-[420px] rounded-xl overflow-hidden group cursor-pointer">
                                 <img
-                                  src="/images/diamond/featured-diamond.png"
+                                  src="/images/daimond/Gemini_Generated_Image_9hrdca9hrdca9hrd.png"
                                   alt="Featured Diamond Collection"
                                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                   onError={(e) => {
-                                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80";
+                                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&q=80";
                                   }}
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
                                 <div className="absolute bottom-6 left-6 right-6">
-                                  <p className="text-white font-serif text-xl mb-2">Diamond Collection</p>
-                                  <p className="text-white/80 text-sm">Timeless elegance</p>
-                                  <div className="mt-4 inline-flex items-center gap-2 text-white/90 text-sm">
-                                    <span>View All</span>
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                  </div>
+                                  <p className="text-white font-serif text-2xl mb-1">Diamond Collection</p>
+                                  <p className="text-white/85 text-sm">Timeless elegance</p>
                                 </div>
+                              </div>
+                            </div>
+
+                            {/* Divider */}
+                            <div className="w-px bg-gray-200 my-6" />
+
+                            {/* Content */}
+                            <div className="flex-1 p-6">
+                              {/* Tabs */}
+                              <div className="flex items-center gap-6 border-b border-gray-100 pb-3">
+                                {megaTabs.map((t) => (
+                                  <button
+                                    key={t}
+                                    type="button"
+                                    onMouseEnter={() => setDiamondTab(t)}
+                                    className={
+                                      "text-sm font-medium transition-colors px-1 pb-2 -mb-[9px] border-b-2 " +
+                                      (diamondTab === t
+                                        ? "text-[#1e3a5f] border-[#1e3a5f]"
+                                        : "text-gray-600 border-transparent hover:text-[#1e3a5f]")
+                                    }
+                                  >
+                                    {t}
+                                  </button>
+                                ))}
+                              </div>
+
+                              {/* Panel */}
+                              <div className="pt-5">
+                                {diamondTab === "Category" && (
+                                  <div className="grid grid-cols-3 gap-y-4">
+                                    {diamondTabContent.Category.map((it) => (
+                                      <Link
+                                        key={it.href}
+                                        href={it.href}
+                                        className="flex items-center py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                      >
+                                        {it.image ? (
+                                          <img
+                                            src={it.image}
+                                            alt={it.label}
+                                            className="w-10 h-10 rounded-md object-cover mr-3 border border-gray-100"
+                                            loading="lazy"
+                                          />
+                                        ) : null}
+                                        <span className="text-[#1e3a5f] text-sm font-medium group-hover:text-[#E92247] transition-colors">
+                                          {it.label}
+                                        </span>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {diamondTab !== "Category" && (
+                                  <div className="text-sm text-gray-600">
+                                    {diamondTab === "Price" && (
+                                      <div className="grid grid-cols-4 gap-4">
+                                        {diamondTabContent.Price.map((it) => (
+                                          <Link
+                                            key={it.label}
+                                            href={it.href}
+                                            className="group rounded-xl border border-gray-100 hover:border-[#1e3a5f]/30 hover:shadow-sm transition-all px-3 py-3 text-center"
+                                          >
+                                            <p className="text-[#1e3a5f] font-medium text-sm">{it.label}</p>
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    )}
+
+                                    {diamondTab === "Occasion" && (
+                                      <div className="grid grid-cols-4 gap-4">
+                                        {diamondTabContent.Occasion.map((it) => (
+                                          <Link
+                                            key={it.label}
+                                            href={it.href}
+                                            className="group rounded-xl border border-gray-100 hover:border-[#1e3a5f]/30 hover:shadow-sm transition-all px-3 py-3 text-center"
+                                          >
+                                            <p className="text-[#1e3a5f] font-medium text-sm">{it.label}</p>
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    )}
+
+                                    {diamondTab === "Gold Coin" && (
+                                      <div className="grid grid-cols-3 gap-y-4">
+                                        {diamondTabContent["Gold Coin"].map((it) => (
+                                          <Link
+                                            key={it.label}
+                                            href={it.href}
+                                            className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors"
+                                          >
+                                            <div className="w-2 h-2 rounded-full bg-blue-400/70" />
+                                            <span className="text-[#1e3a5f] text-sm font-medium">{it.label}</span>
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    )}
+
+                                    {diamondTab === "Men" && (
+                                      <div className="grid grid-cols-3 gap-y-4">
+                                        {diamondTabContent.Men.map((it) => (
+                                          <Link
+                                            key={it.label}
+                                            href={it.href}
+                                            className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-gray-50 transition-colors"
+                                          >
+                                            <div className="w-2 h-2 rounded-full bg-gray-500/70" />
+                                            <span className="text-[#1e3a5f] text-sm font-medium">{it.label}</span>
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    )}
+
+                                    {diamondTab === "Metal" && (
+                                      <div className="grid grid-cols-3 gap-4 max-w-[420px]">
+                                        {diamondTabContent.Metal.map((it) => (
+                                          <Link
+                                            key={it.label}
+                                            href={it.href}
+                                            className="flex items-center gap-3 py-3 px-3 rounded-xl border border-gray-100 hover:border-[#1e3a5f]/30 hover:shadow-sm transition-all"
+                                          >
+                                            <div
+                                              className="w-5 h-5 rounded-full border border-gray-200"
+                                              style={{ backgroundColor: it.swatch }}
+                                            />
+                                            <span className="text-[#1e3a5f] text-sm font-medium">{it.label}</span>
+                                          </Link>
+                                        ))}
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
                               </div>
                             </div>
                           </div>

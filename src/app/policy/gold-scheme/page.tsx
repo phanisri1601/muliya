@@ -255,7 +255,7 @@ export default function GoldSchemePage() {
           </h2>
           <p className="text-gray-400 mb-8 text-lg max-w-2xl mx-auto">
             Join thousands of families who trust Muliya for their gold investments. 
-            Choose a plan that suits your needs and start building your golden future.
+            Choose a plan that suits your needs and start building your  future.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a

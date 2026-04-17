@@ -9,6 +9,7 @@ import { Card, CardContent } from "../components/ui/card";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { HeroParallaxBanner } from "@/app/components/HeroParallaxBanner";
 import AboutSection from "../components/AboutSection";
+import VideoGallery from "@/app/components/VideoCarousel";
 
 const collections = [
   {
@@ -249,6 +250,26 @@ function GemFallback(props: { className?: string }) {
 export function Home() {
   const identityRef = React.useRef<HTMLElement | null>(null);
   const [identityStep, setIdentityStep] = React.useState(0);
+   const reelSources = React.useMemo(
+    () => [
+      "/images/video1.mp4",
+      "/images/video2.mp4",
+      "/images/video3.mp4",
+      // "/images/video4.mp4",
+      // "/images/video5.mp4",
+      // "/images/video6.mp4",
+    ],
+    [],
+  );
+  const [activeReel, setActiveReel] = React.useState(0);
+
+  const prevReel = React.useCallback(() => {
+    setActiveReel((i) => (i - 1 + reelSources.length) % reelSources.length);
+  }, [reelSources.length]);
+
+  const nextReel = React.useCallback(() => {
+    setActiveReel((i) => (i + 1) % reelSources.length);
+  }, [reelSources.length]);
 
   React.useEffect(() => {
     const el = identityRef.current;
@@ -353,6 +374,40 @@ export function Home() {
         </div>
       </section> */}
       <HeroParallaxBanner />
+
+      <section className="bg-[#f6f2ec] my-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            <div className="relative min-h-[360px] lg:min-h-[520px]">
+              <ImageWithFallback
+                src="/images/young-model-demonstrating-expensive-jewelry.jpg"
+                alt="Who we are today"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+            <div className="flex items-center py-12 lg:py-16">
+              <div className="w-full max-w-xl px-2 sm:px-6 lg:px-14">
+                <h2 className="text-3xl md:text-4xl font-serif text-gray-900">Who we are today</h2>
+                <div className="mt-6 space-y-4 text-sm md:text-base leading-relaxed text-gray-700">
+                  <p>
+Today, Muliya – Gold & Diamonds is a symbol of elegance, trust, and forward-thinking craftsmanship. With over 81 years of heritage, we proudly serve customers through 7 showrooms across Karnataka, including Dakshina Kannada’s largest showroom in Puttur, spanning 10,000 sq. ft.
+
+Our brand is built for every generation—from traditional gold lovers to the contemporary bride, from silver seekers to diamond connoisseurs. Every collection at Muliya is designed to make you feel proud, celebrated, and connected.
+                  </p>
+                  <p>
+                    Our commitment to excellence has got us a reputation for creating quality jewellery of refined craftsmanship and pure elegance.
+                  </p>
+                </div>
+                <div className="mt-8">
+                  <Link href="/about" className="text-sm font-medium text-[#7b1f2a] underline underline-offset-4 hover:text-[#E92247] transition-colors">
+                    Read more
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <AboutSection/>
 
       {/* Shop By Category - Horizontal Carousel */}
@@ -360,22 +415,22 @@ export function Home() {
         <div className="relative">
           <div className="flex overflow-x-auto scrollbar-hide">
             {[
-              { name: "RINGS", slug: "rings", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&q=80" },
-              { name: "EARRINGS", slug: "earrings", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80" },
-              { name: "PENDANTS", slug: "pendants", image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80" },
-              { name: "BANGLES", slug: "bangles", image: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&q=80" },
-              { name: "BRACELETS", slug: "bracelets", image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220b?w=800&q=80" },
-              { name: "MANGALSUTRA", slug: "mangalsutra", image: "https://images.unsplash.com/photo-1602752250055-5ebb552fc3ae?w=800&q=80" },
-              { name: "NECKLACE", slug: "necklaces", image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80" },
-              { name: "CHAIN", slug: "chains", image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80" },
-            ].map((cat, idx) => (
+  { name: "RINGS", slug: "rings", image: "/images/categories/ring-c.png" },
+  { name: "EARRINGS", slug: "earrings", image: "/images/categories/earings-c.png" },
+  { name: "PENDANTS", slug: "pendants", image: "/images/categories/pendent-c.png" },
+  { name: "BANGLES", slug: "bangles", image: "/images/categories/bangles-c.png" },
+  { name: "BRACELETS", slug: "bracelets", image: "/images/categories/chain-c2.png" }, // adjust if needed
+  { name: "MANGALSUTRA", slug: "mangalsutra", image: "/images/categories/mangalsutra-c.png" },
+  { name: "NECKLACE", slug: "necklaces", image: "/images/categories/necklece-c.png" },
+  { name: "CHAIN", slug: "chains", image: "/images/categories/chain-c.png" },
+].map((cat, idx) => (
               <motion.div
                 key={cat.slug}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="relative flex-shrink-0 w-[25%] min-w-[300px] aspect-[4/5] group cursor-pointer overflow-hidden"
+                className="relative flex-shrink-0 w-[25%] min-w-[300px] aspect-[3/5] group cursor-pointer overflow-hidden"
               >
                 <Link href={`/products/${cat.slug}`} className="block w-full h-full">
                   <div className="relative w-full h-full">
@@ -416,7 +471,7 @@ export function Home() {
       </section>
 
       {/* Quote */}
-      <section className="py-8 bg-white">
+      {/* <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-start gap-6">
             <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center text-[#E92247]">
@@ -431,7 +486,7 @@ export function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Story block */}
       <section className="py-8 bg-gradient-to-r from-[#E92247]/10 to-white">
@@ -439,11 +494,10 @@ export function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4">
-                Our story begins in 1944
+                Our Story Begins In 1944
               </h2>
               <p className="text-gray-700 text-lg leading-relaxed">
-                Founded with integrity and built on transparency, Muliya has grown into a trusted name - connecting
-                craftsmanship with customer-first service across generations.
+               Founded On Integrity And Built With Transparency, Muliya Has Grown Into A Trusted Name—Connecting Craftsmanship With Customer-First Service Across Generations.
               </p>
               <div className="mt-8">
                 <Button variant="outline" size="lg" asChild>
@@ -465,53 +519,98 @@ export function Home() {
         </div>
       </section>
 
-      {/* Collections */}
-      <section className="py-8 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-10">
-            Collections
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { name: "Amuliya Diamonds", desc: "Exquisite diamond craftsmanship", image: "/images/amuliya.png", slug: "amuliya" },
-              { name: "Mahathi Antique Collection", desc: "Timeless antique designs", image: "/images/mahathi.png", slug: "mahathi" },
-              { name: "Pouranik Collection", desc: "Heritage-inspired pieces", image: "/images/pournik.png", slug: "pouranik" },
-              { name: "Muliya Silveriya", desc: "Premium silver jewellery", image: "/images/silveriya.png", slug: "silveriya" },
-              { name: "Nithya 18k Jewellery Series", desc: "Everyday elegance in 18k gold", image: "/images/nithya.png", slug: "nithya" },
-              { name: "Mangalsutra Collection", desc: "Sacred bonds, beautiful designs", image: "/images/mangalsutra.png", slug: "mangalsutra" },
-            ].map((col, idx) => (
-              <motion.div
-                key={col.slug}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: idx * 0.05 }}
-              >
-                <Link href={`/collections/${col.slug}`}>
-                  <div className="group cursor-pointer">
-                    <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-purple-100 to-purple-50">
-                      <ImageWithFallback
-                        src={col.image}
-                        alt={col.name}
-                        className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <div className="mt-3 flex items-start justify-between">
-                      <div>
-                        <h3 className="text-xl font-serif text-gray-900 flex items-center gap-1 group-hover:text-gray-700 transition-colors">
-                          {col.name}
-                          <ArrowRight className="w-4 h-4 -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </h3>
-                        {col.desc && <p className="text-sm text-gray-600 mt-1">{col.desc}</p>}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+      <section className="w-full">
+        <div className="relative w-full h-[60vh]">
+          <ImageWithFallback src="/images/banners7.png" alt="Gold collection" className="w-full h-full object-cover" />
         </div>
       </section>
+
+      {/* Collections */}
+     <section className="py-8 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-10 text-center">
+      Collections
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+      
+      {[
+  { 
+    name: "Amuliya Diamonds", 
+    desc: "Exquisite Diamond Craftsmanship", 
+    image: "/images/amuliya.png", 
+    slug: "amuliya" 
+  },
+  { 
+    name: "Mahathi Antique Collection", 
+    desc: "Timeless Antique Designs", 
+    image: "/images/mahathi.png", 
+    slug: "mahathi" 
+  },
+  { 
+    name: "Pouranik Collection", 
+    desc: "Heritage-Inspired Pieces", 
+    image: "/images/pournik.png", 
+    slug: "pouranik" 
+  },
+  { 
+    name: "Muliya Silveriya", 
+    desc: "Premium Silver Jewellery", 
+    image: "/images/silveriya.png", 
+    slug: "silveriya" 
+  },
+  { 
+    name: "Nithya 18k Jewellery Series", 
+    desc: "Everyday Elegance In 18k Gold", 
+    image: "/images/nithya.png", 
+    slug: "nithya" 
+  },
+  { 
+    name: "Mangalsutra Collection", 
+    desc: "Sacred Bonds, Beautiful Designs", 
+    image: "/images/mangalsutra.png", 
+    slug: "mangalsutra" 
+  }
+].map((col, idx) => (
+        <motion.div
+          key={col.slug}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, delay: idx * 0.05 }}
+        >
+          <Link href={`/collections/${col.slug}`}>
+            <div className="group cursor-pointer text-center">
+
+              <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-purple-100 to-purple-50">
+                <ImageWithFallback
+                  src={col.image}
+                  alt={col.name}
+                  className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+
+              <div className="mt-3">
+                <h3 className="text-xl font-serif text-gray-900 flex items-center justify-center gap-1 group-hover:text-gray-700 transition-colors">
+                  {col.name}
+                  <ArrowRight className="w-4 h-4 -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </h3>
+
+                {col.desc && (
+                  <p className="text-sm text-gray-600 mt-1">
+                    {col.desc}
+                  </p>
+                )}
+              </div>
+
+            </div>
+          </Link>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Gold Scheme Section */}
       <section className="py-12 bg-gradient-to-br from-amber-50 via-white to-amber-50">
@@ -529,8 +628,7 @@ export function Home() {
                 Easy Jewellery Buying Plan
               </h2>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
-                Start saving monthly and buy your dream jewellery when you're ready. 
-                Get bonus benefits on completion and enjoy flexible payment options.
+                Start Saving Monthly And Buy Your Dream Jewellery When You're Ready. Get Bonus Benefits On Completion And Enjoy Flexible Payment Options.
               </p>
 
               {/* Stats */}
@@ -658,8 +756,100 @@ export function Home() {
         </div>
       </section>
 
-      {/* Video Gallery - Horizontal Scroll */}
       <section className="py-8 bg-white">
+        <div className="px-4 sm:px-6 lg:px-8">
+          <div className="relative mx-auto max-w-6xl">
+            <div className="relative h-[520px] sm:h-[560px] md:h-[600px] flex items-center justify-center">
+              <button
+                type="button"
+                onClick={prevReel}
+                aria-label="Previous reel"
+                className="absolute left-0 sm:left-2 md:left-6 top-1/2 -translate-y-1/2 z-20 h-11 w-11 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-gray-900"
+              >
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                onClick={nextReel}
+                aria-label="Next reel"
+                className="absolute right-0 sm:right-2 md:right-6 top-1/2 -translate-y-1/2 z-20 h-11 w-11 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-gray-900"
+              >
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+
+              {reelSources.map((src, idx) => {
+                const total = reelSources.length;
+                const offset = ((idx - activeReel) % total + total) % total;
+                const rel = offset === 0 ? 0 : offset <= total / 2 ? offset : offset - total;
+
+                const isActive = rel === 0;
+                const isNeighbor = Math.abs(rel) === 1;
+
+                let translateX = 0;
+                let scale = 1;
+                let opacity = 1;
+                let z = 10;
+
+                if (isActive) {
+                  translateX = 0;
+                  scale = 1;
+                  opacity = 1;
+                  z = 30;
+                } else if (isNeighbor) {
+                  translateX = rel * 150;
+                  scale = 0.86;
+                  opacity = 1;
+                  z = 20;
+                } else {
+                  translateX = rel * 210;
+                  scale = 0.78;
+                  opacity = 0;
+                  z = 10;
+                }
+
+                return (
+                  <div
+                    key={src}
+                    className="absolute top-1/2 left-1/2"
+                    style={{
+                      transform: `translate(-50%, -50%) translateX(${translateX}px) scale(${scale})`,
+                      opacity,
+                      zIndex: z,
+                      filter: isActive ? "none" : "saturate(1.05) contrast(1.02)",
+                      transition: "transform 400ms ease, opacity 400ms ease",
+                    }}
+                  >
+                    <div
+                      className={
+                        "relative aspect-[9/16] w-[240px] sm:w-[270px] md:w-[300px] overflow-hidden bg-transparent shadow-xl " +
+                        (isActive ? "rounded-3xl" : "rounded-2xl")
+                      }
+                    >
+                      <video
+                        key={isActive ? src : `${src}-inactive`}
+                        src={src}
+                        autoPlay={isActive}
+                        muted
+                        loop
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Video Gallery - Horizontal Scroll */}
+      {/* <section className="py-8 bg-white">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex overflow-x-auto gap-4 pb-4 hide-scrollbar snap-x snap-mandatory">
             {[
@@ -692,50 +882,10 @@ export function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
+      {/* <VideoGallery /> */}
 
-      {/* Faces */}
-      <section className="py-8 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between gap-6 flex-wrap">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-serif text-gray-900">Faces of Muliya</h2>
-              <p className="text-gray-600 mt-3 max-w-2xl">
-                A flagship campaign spotlighting local talent and stories beyond jewellery.
-              </p>
-            </div>
-            <Button variant="outline" asChild>
-              <Link href="/blog">View More</Link>
-            </Button>
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              "https://images.unsplash.com/photo-1520975916090-3105956dac38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=900",
-              "https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=900",
-              "https://images.unsplash.com/photo-1520975916090-3105956dac38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=900",
-            ].map((src, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: idx * 0.06 }}
-              >
-                <Card className="rounded-2xl overflow-hidden border-amber-100">
-                  <div className="relative h-64">
-                    <ImageWithFallback src={src} alt="Face of Muliya" className="w-full h-full object-cover" />
-                  </div>
-                  <CardContent className="p-5">
-                    <p className="font-semibold text-gray-900">Featured Talent</p>
-                    <p className="text-sm text-gray-600 mt-1">Community Story</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+    
 
       {/* Testimonials - BlueStone Style */}
       <section className="py-8 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
@@ -745,7 +895,7 @@ export function Home() {
               Muliya & Me
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Real experiences from customers who trust Muliya for craftsmanship and service.
+             Real Experiences From Customers Who Trust Muliya For Craftsmanship And Service.
             </p>
           </div>
         </div>
@@ -865,43 +1015,68 @@ export function Home() {
       </section>
 
       {/* Details */}
-      <section className="py-8 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-serif text-gray-900">
-              Our spark is in the details
-            </h2>
-            <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
-              Trust-enhancing tools and an experience built around clarity, quality, and care.
-            </p>
-          </div>
+   <section className="relative py-20 bg-gradient-to-b from-[#fffaf5] to-white overflow-hidden">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {detailCards.map((c, idx) => (
-              <motion.div
-                key={c.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: idx * 0.04 }}
-              >
-                <Card className="rounded-2xl border-amber-100 h-full">
-                  <CardContent className="p-6">
-                    <div className="w-12 h-12 rounded-full bg-amber-100 text-[#E92247] flex items-center justify-center mb-4">
-                      <c.icon className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{c.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{c.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+    {/* Heading */}
+    <div className="text-center mb-16">
+      <h2 className="text-4xl md:text-5xl font-serif text-gray-900 tracking-wide">
+        Our Spark Is In The Details
+      </h2>
+      <div className="w-24 h-[2px] bg-gradient-to-r from-transparent via-[#E92247] to-transparent mx-auto mt-4" />
+      <p className="text-gray-600 mt-5 max-w-2xl mx-auto text-lg leading-relaxed">
+        Trust-enhancing tools and an experience built around clarity, quality, and care.
+      </p>
+    </div>
+
+    {/* Cards */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      {detailCards.map((c, idx) => (
+        <motion.div
+          key={c.id}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: idx * 0.08 }}
+        >
+          <div className="relative group h-full rounded-3xl p-[1px] bg-gradient-to-br from-amber-200 via-white to-amber-100 hover:from-[#E92247] hover:to-amber-200 transition duration-500">
+
+            {/* Inner Card */}
+            <div className="h-full bg-white/80 backdrop-blur-xl rounded-3xl p-8 flex flex-col justify-between shadow-md group-hover:shadow-2xl transition-all duration-500">
+
+              {/* Icon */}
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-100 to-white flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:shadow-lg transition">
+                <c.icon className="w-7 h-7 text-[#E92247]" />
+              </div>
+
+              {/* Content */}
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-[#E92247] transition">
+                  {c.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {c.description}
+                </p>
+              </div>
+
+              {/* Bottom Accent */}
+              <div className="mt-6 w-10 h-[2px] bg-[#E92247] group-hover:w-16 transition-all duration-300" />
+            </div>
           </div>
-        </div>
-      </section>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+
+  {/* Background Glow Effect */}
+  <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+    <div className="absolute w-96 h-96 bg-[#E92247]/10 rounded-full blur-3xl top-10 left-10"></div>
+    <div className="absolute w-96 h-96 bg-amber-200/20 rounded-full blur-3xl bottom-10 right-10"></div>
+  </div>
+</section>
 
       {/* Journal */}
-      <section className="py-8 bg-white">
+      {/* <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between gap-6 flex-wrap">
             <div>
@@ -967,109 +1142,11 @@ export function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Enquire Now */}
-      <section className="py-8 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4">
-                Enquire Now
-              </h2>
-              <p className="text-gray-700 text-lg leading-relaxed">
-                Share your details and our executives will contact you with store guidance.
-              </p>
-              <div className="mt-6 space-y-3 text-gray-600">
-                <p className="flex items-center gap-3">
-                  <Shield className="w-5 h-5 text-[#E92247]" />
-                  Secure follow-up and support.
-                </p>
-                <p className="flex items-center gap-3">
-                  <Award className="w-5 h-5 text-[#E92247]" />
-                  Curated suggestions based on your needs.
-                </p>
-              </div>
-            </div>
+    
 
-            <form
-              className="bg-white border border-amber-100 rounded-2xl p-6 shadow-sm"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const fd = new FormData(e.currentTarget);
-                const name = String(fd.get("name") ?? "").trim();
-                const mobile = String(fd.get("mobile") ?? "").trim();
-                const city = String(fd.get("city") ?? "").trim();
-                if (!name || !mobile || !city) {
-                  window.alert("Please fill in name, mobile number, and city.");
-                  return;
-                }
-                window.alert("Request sent! Our executives will contact you shortly.");
-                e.currentTarget.reset();
-              }}
-            >
-              <div className="grid grid-cols-1 gap-4">
-                <div>
-                  <label className="text-sm font-semibold text-gray-900">Name</label>
-                  <input
-                    name="name"
-                    className="mt-1 w-full rounded-md border border-gray-200 px-3 py-2 bg-white outline-none focus:ring-2 focus:ring-[#E92247]/30"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-semibold text-gray-900">Mobile Number</label>
-                  <input
-                    name="mobile"
-                    inputMode="tel"
-                    className="mt-1 w-full rounded-md border border-gray-200 px-3 py-2 bg-white outline-none focus:ring-2 focus:ring-[#E92247]/30"
-                    placeholder="Mobile Number"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-semibold text-gray-900">City</label>
-                  <input
-                    name="city"
-                    className="mt-1 w-full rounded-md border border-gray-200 px-3 py-2 bg-white outline-none focus:ring-2 focus:ring-[#E92247]/30"
-                    placeholder="City"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="bg-[#E92247] hover:bg-[#E92247]/90"
-                >
-                  Send
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-
-                <p className="text-xs text-gray-500 leading-relaxed">
-                  After submission of this form, you will get a call from our executives for assistance.
-                </p>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* Gold rate strip (bottom) */}
-      <section className="py-8 bg-black text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl border border-white/10 bg-white/5">
-              <p className="text-sm text-white/70 mb-2">Gold 22k</p>
-              <p className="text-4xl font-serif">--</p>
-              <p className="text-sm text-white/60 mt-1">/gram</p>
-            </div>
-            <div className="p-6 rounded-2xl border border-white/10 bg-white/5">
-              <p className="text-sm text-white/70 mb-2">Silver</p>
-              <p className="text-4xl font-serif">--</p>
-              <p className="text-sm text-white/60 mt-1">/gram</p>
-            </div>
-          </div>
-        </div>
-      </section>
+     
     </div>
   );
 }

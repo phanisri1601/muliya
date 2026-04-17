@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronRight, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { ImageWithFallbackNext } from "@/app/components/ImageWithFallbackNext";
+
+const formatINR = (value: number) => new Intl.NumberFormat("en-IN").format(value);
+
+const BANNER_SRC = "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (10).png";
 
 interface Product {
   id: string;
@@ -209,11 +213,15 @@ export default function SilverPage() {
       </div>
 
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 py-16 md:py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallbackNext src={BANNER_SRC} alt="Silver banner" fill className="object-cover" />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900 mb-4">Silver Collection</h1>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">Discover our exquisite range of sterling silver jewelry - rings, bracelets, watches, and pendants crafted with precision and elegance.</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-4 drop-shadow">Silver Collection</h1>
+            <p className="text-white/90 text-lg max-w-2xl mx-auto drop-shadow">Discover our exquisite range of sterling silver jewelry - rings, bracelets, watches, and pendants crafted with precision and elegance.</p>
           </div>
         </div>
       </div>
@@ -253,12 +261,7 @@ export default function SilverPage() {
                     className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer"
                   >
                     <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
-                      <Image 
-                        src={product.image} 
-                        alt={product.name} 
-                        fill 
-                        className="object-cover transition-transform duration-500 group-hover:scale-110" 
-                      />
+                      <ImageWithFallbackNext src={product.image} alt={product.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
                       <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                         <button 
                           onClick={(e) => handleAddToCart(product, e)} 
@@ -288,9 +291,9 @@ export default function SilverPage() {
                         <span>{product.purity}</span>
                       </div>
                       <div className="flex items-center gap-3 mb-4">
-                        <span className="text-xl font-bold text-[#E92247]">₹{product.price.toLocaleString()}</span>
+                        <span className="text-xl font-bold text-[#E92247]">₹{formatINR(product.price)}</span>
                         {product.originalPrice && (
-                          <span className="text-sm text-gray-400 line-through">₹{product.originalPrice.toLocaleString()}</span>
+                          <span className="text-sm text-gray-400 line-through">₹{formatINR(product.originalPrice)}</span>
                         )}
                       </div>
                       <button 

@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronRight, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { ImageWithFallbackNext } from "@/app/components/ImageWithFallbackNext";
+
+const formatINR = (value: number) => new Intl.NumberFormat("en-IN").format(value);
+
+const BANNER_SRC = "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (3).png";
 
 interface Product {
   id: string;
@@ -25,7 +29,7 @@ const necklaces: Product[] = [
     name: "Traditional Gold Necklace",
     price: 125000,
     originalPrice: 145000,
-    image: "/images/gold/Necklaces.png",
+    image: "/images/young-model-demonstrating-expensive-jewelry.jpg",
     category: "Gold Necklaces",
     description: "Classic South Indian necklace with intricate design",
     weight: "25.5 grams",
@@ -36,7 +40,7 @@ const necklaces: Product[] = [
     name: "Diamond Choker Necklace",
     price: 245000,
     originalPrice: 285000,
-    image: "/images/diamond/Necklaces.png",
+    image: "/images/daimond/diamond-chain.jpeg",
     category: "Diamond Necklaces",
     description: "Elegant diamond choker with modern setting",
     weight: "18.2 grams",
@@ -47,7 +51,7 @@ const necklaces: Product[] = [
     name: "Temple Design Necklace",
     price: 185000,
     originalPrice: 210000,
-    image: "/images/gold/Necklaces.png",
+    image: "/images/closeup-shot-female-wearing-beautiful-silver-necklace-with-diamond-pendant.jpg",
     category: "Gold Necklaces",
     description: "Traditional temple jewelry with Lakshmi motif",
     weight: "32.8 grams",
@@ -58,7 +62,7 @@ const necklaces: Product[] = [
     name: "Floral Pattern Necklace",
     price: 98000,
     originalPrice: 115000,
-    image: "/images/gold/Necklaces.png",
+    image: "/images/shiny-gemstone-necklace-reflects-elegance-glamour-generated-by-ai.jpg",
     category: "Gold Necklaces",
     description: "Delicate floral pattern with high polish finish",
     weight: "16.5 grams",
@@ -69,7 +73,7 @@ const necklaces: Product[] = [
     name: "Ruby Emerald Necklace",
     price: 285000,
     originalPrice: 325000,
-    image: "/images/gold/Necklaces.png",
+    image: "/images/luxury-jewellery-display.jpg",
     category: "Gold Necklaces",
     description: "Stunning necklace with ruby and emerald stones",
     weight: "28.5 grams",
@@ -80,7 +84,7 @@ const necklaces: Product[] = [
     name: "Modern Diamond Necklace",
     price: 195000,
     originalPrice: 225000,
-    image: "/images/diamond/Necklaces.png",
+    image: "/images/daimond/diamond-chain.jpeg",
     category: "Diamond Necklaces",
     description: "Contemporary geometric design with diamonds",
     weight: "15.8 grams",
@@ -91,7 +95,7 @@ const necklaces: Product[] = [
     name: "Antique Finish Necklace",
     price: 155000,
     originalPrice: 175000,
-    image: "/images/gold/Necklaces.png",
+    image: "/images/young-model-demonstrating-expensive-jewelry.jpg",
     category: "Gold Necklaces",
     description: "Vintage antique finish with traditional patterns",
     weight: "26.2 grams",
@@ -102,7 +106,7 @@ const necklaces: Product[] = [
     name: "Pearl String Necklace",
     price: 75000,
     originalPrice: 88000,
-    image: "/images/gold/Necklaces.png",
+    image: "/images/luxury-jewellery-display.jpg",
     category: "Gold Necklaces",
     description: "Elegant pearl strings with gold accents",
     weight: "12.5 grams",
@@ -113,7 +117,7 @@ const necklaces: Product[] = [
     name: "Layered Gold Necklace",
     price: 115000,
     originalPrice: 135000,
-    image: "/images/gold/Necklaces.png",
+    image: "/images/closeup-shot-female-wearing-beautiful-silver-necklace-with-diamond-pendant.jpg",
     category: "Gold Necklaces",
     description: "Multi-layered design with intricate detailing",
     weight: "22.8 grams",
@@ -124,7 +128,7 @@ const necklaces: Product[] = [
     name: "Bridal Diamond Necklace",
     price: 345000,
     originalPrice: 395000,
-    image: "/images/diamond/Necklaces.png",
+    image: "/images/daimond/diamond-chain.jpeg",
     category: "Diamond Necklaces",
     description: "Bridal collection with premium diamonds",
     weight: "24.5 grams",
@@ -170,11 +174,15 @@ export default function NecklacesPage() {
       </div>
 
       {/* Hero Banner */}
-      <div className="relative bg-gradient-to-r from-amber-50 to-yellow-50 py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative bg-gradient-to-r from-amber-50 to-yellow-50 py-16 md:py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallbackNext src={BANNER_SRC} alt="Necklaces banner" fill className="object-cover" />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900 mb-4">Necklaces</h1>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">Discover our exquisite collection of gold and diamond necklaces. From traditional designs to contemporary styles, find the perfect piece for every occasion.</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-4 drop-shadow">Necklaces</h1>
+            <p className="text-white/90 text-lg max-w-2xl mx-auto drop-shadow">Discover our exquisite collection of gold and diamond necklaces. From traditional designs to contemporary styles, find the perfect piece for every occasion.</p>
           </div>
         </div>
       </div>
@@ -190,7 +198,7 @@ export default function NecklacesPage() {
             >
               {/* Image Container */}
               <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
-                <Image src={necklace.image} alt={necklace.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                <ImageWithFallbackNext src={necklace.image} alt={necklace.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
                 {/* Quick Actions */}
                 <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                   <button onClick={(e) => handleAddToCart(necklace, e)} className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-[#E92247] hover:bg-[#E92247] hover:text-white transition-colors" title="Add to Cart">
@@ -218,8 +226,8 @@ export default function NecklacesPage() {
                 </div>
                 {/* Price */}
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xl font-bold text-[#E92247]">₹{necklace.price.toLocaleString()}</span>
-                  {necklace.originalPrice && <span className="text-sm text-gray-400 line-through">₹{necklace.originalPrice.toLocaleString()}</span>}
+                  <span className="text-xl font-bold text-[#E92247]">₹{formatINR(necklace.price)}</span>
+                  {necklace.originalPrice && <span className="text-sm text-gray-400 line-through">₹{formatINR(necklace.originalPrice)}</span>}
                 </div>
                 {/* Add to Cart Button */}
                 <button onClick={(e) => handleAddToCart(necklace, e)} className="w-full flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-3 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium mt-auto">

@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronRight, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { ImageWithFallbackNext } from "@/app/components/ImageWithFallbackNext";
+
+const formatINR = (value: number) => new Intl.NumberFormat("en-IN").format(value);
+
+const BANNER_SRC = "/category/Gemini_Generated_Image_uacnh2uacnh2uacn (1).png";
 
 interface Product {
   id: string;
@@ -36,7 +40,7 @@ const earrings: Product[] = [
     name: "Diamond Stud Earrings",
     price: 98000,
     originalPrice: 115000,
-    image: "/images/diamond/Earrings.png",
+    image: "/images/daimond/diamond-ring.jpeg",
     category: "Diamond Earrings",
     description: "Elegant round brilliant diamond studs in platinum setting",
     weight: "4.2 grams",
@@ -69,7 +73,7 @@ const earrings: Product[] = [
     name: "Diamond Hoop Earrings",
     price: 125000,
     originalPrice: 145000,
-    image: "/images/diamond/Earrings.png",
+    image: "/images/daimond/diamond-ring.jpeg",
     category: "Diamond Earrings",
     description: "Sparkling diamond encrusted hoop earrings",
     weight: "6.8 grams",
@@ -102,7 +106,7 @@ const earrings: Product[] = [
     name: "Modern Geometric Earrings",
     price: 145000,
     originalPrice: 165000,
-    image: "/images/diamond/Earrings.png",
+    image: "/images/daimond/diamond-ring.jpeg",
     category: "Diamond Earrings",
     description: "Contemporary geometric design with princess cut diamonds",
     weight: "5.5 grams",
@@ -174,13 +178,17 @@ export default function EarringsPage() {
       </div>
 
       {/* Hero Banner */}
-      <div className="relative bg-gradient-to-r from-amber-50 to-yellow-50 py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative bg-gradient-to-r from-amber-50 to-yellow-50 py-16 md:py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallbackNext src={BANNER_SRC} alt="Earrings banner" fill className="object-cover" />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-4 drop-shadow">
               Earrings
             </h1>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-white/90 text-lg max-w-2xl mx-auto drop-shadow">
               Discover our exquisite collection of gold and diamond earrings. From traditional jhumkas to contemporary studs, find the perfect pair for every occasion.
             </p>
           </div>
@@ -198,7 +206,7 @@ export default function EarringsPage() {
             >
               {/* Image Container */}
               <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
-                <Image
+                <ImageWithFallbackNext
                   src={earring.image}
                   alt={earring.name}
                   fill
@@ -248,11 +256,11 @@ export default function EarringsPage() {
                 {/* Price */}
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-xl font-bold text-[#E92247]">
-                    ₹{earring.price.toLocaleString()}
+                    ₹{formatINR(earring.price)}
                   </span>
                   {earring.originalPrice && (
                     <span className="text-sm text-gray-400 line-through">
-                      ₹{earring.originalPrice.toLocaleString()}
+                      ₹{formatINR(earring.originalPrice)}
                     </span>
                   )}
                 </div>

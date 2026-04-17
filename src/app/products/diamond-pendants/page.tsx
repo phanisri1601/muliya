@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronRight, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { ImageWithFallbackNext } from "@/app/components/ImageWithFallbackNext";
+
+const formatINR = (value: number) => new Intl.NumberFormat("en-IN").format(value);
+
+const BANNER_SRC = "/images/daimond/Gemini_Generated_Image_9hrdca9hrdca9hrd.png";
 
 interface Product {
   id: string;
@@ -160,11 +164,15 @@ export default function DiamondPendantsPage() {
         </div>
       </div>
 
-      <div className="relative bg-gradient-to-r from-blue-50 to-indigo-50 py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative bg-gradient-to-r from-blue-50 to-indigo-50 py-16 md:py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallbackNext src={BANNER_SRC} alt="Diamond Pendants banner" fill className="object-cover" />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900 mb-4">Diamond Pendants</h1>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">Timeless elegance close to your heart. Discover our stunning collection of diamond pendants.</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-4 drop-shadow">Diamond Pendants</h1>
+            <p className="text-white/90 text-lg max-w-2xl mx-auto drop-shadow">Timeless elegance close to your heart. Discover our stunning collection of diamond pendants.</p>
           </div>
         </div>
       </div>
@@ -174,7 +182,7 @@ export default function DiamondPendantsPage() {
           {diamondPendants.map((pendant) => (
             <div key={pendant.id} onClick={() => handleProductClick(pendant.id)} className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
               <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
-                <Image src={pendant.image} alt={pendant.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                <ImageWithFallbackNext src={pendant.image} alt={pendant.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
                 <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                   <button onClick={(e) => handleAddToCart(pendant, e)} className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-[#E92247] hover:bg-[#E92247] hover:text-white transition-colors" title="Add to Cart"><ShoppingCart className="w-5 h-5" /></button>
                   <button onClick={(e) => e.stopPropagation()} className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-[#E92247] transition-colors" title="Add to Wishlist"><Heart className="w-5 h-5" /></button>
@@ -186,8 +194,8 @@ export default function DiamondPendantsPage() {
                 <p className="text-gray-500 text-sm mb-3 line-clamp-2">{pendant.description}</p>
                 <div className="flex items-center gap-3 text-xs text-gray-400 mb-3"><span>{pendant.weight}</span><span>•</span><span>{pendant.purity}</span></div>
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xl font-bold text-[#E92247]">₹{pendant.price.toLocaleString()}</span>
-                  {pendant.originalPrice && <span className="text-sm text-gray-400 line-through">₹{pendant.originalPrice.toLocaleString()}</span>}
+                  <span className="text-xl font-bold text-[#E92247]">₹{formatINR(pendant.price)}</span>
+                  {pendant.originalPrice && <span className="text-sm text-gray-400 line-through">₹{formatINR(pendant.originalPrice)}</span>}
                 </div>
                 <button onClick={(e) => handleAddToCart(pendant, e)} className="w-full flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-3 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium mt-auto"><ShoppingCart className="w-4 h-4" />Add to Cart</button>
               </div>

@@ -6,6 +6,8 @@ import { Badge } from "./ui/badge";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { toast } from "sonner";
 
+const formatINR = (value: number) => new Intl.NumberFormat("en-IN").format(value);
+
 interface ProductCardProps {
   id: string;
   name: string;
@@ -97,11 +99,11 @@ export function ProductCard({
 
           <div className="flex items-baseline gap-2">
             <span className="text-xl font-semibold text-amber-700">
-              ₹{price.toLocaleString()}
+              ₹{formatINR(price)}
             </span>
             {originalPrice && (
               <span className="text-sm text-gray-500 line-through">
-                ₹{originalPrice.toLocaleString()}
+                ₹{formatINR(originalPrice)}
               </span>
             )}
           </div>
