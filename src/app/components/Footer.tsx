@@ -2,22 +2,56 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
 export function Footer() {
   const [logoError, setLogoError] = useState(false);
+  const [email, setEmail] = useState("");
+
   return (
-    <footer className="bg-[#0F4C5C] text-gray-300">
+    <footer className="bg-white text-gray-700 relative overflow-hidden">
+      {/* Decorative light blue circles */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute w-96 h-96 bg-blue-100/40 rounded-full blur-3xl -top-20 -left-20"></div>
+        <div className="absolute w-80 h-80 bg-sky-100/30 rounded-full blur-3xl top-20 right-10"></div>
+        <div className="absolute w-72 h-72 bg-blue-50/50 rounded-full blur-3xl bottom-10 left-1/3"></div>
+        <div className="absolute w-64 h-64 bg-sky-50/40 rounded-full blur-3xl -bottom-10 right-1/4"></div>
+      </div>
+
+      {/* Newsletter Section */}
+      <div className="relative z-10 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="text-2xl font-serif text-gray-900 mb-2">Stay Updated</h3>
+              <p className="text-sm text-gray-600">Subscribe to get the latest updates on new collections and offers.</p>
+            </div>
+            <div className="flex gap-3 w-full md:w-auto">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full md:w-64 bg-white/80 border-gray-300"
+              />
+              <Button className="bg-[#E92247] hover:bg-[#E92247]/90 text-white">
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
-          <div>
+          <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <img
-                src="/images/Muliya_White_Logo.png"
+                src="/images/Logo-1.svg"
                 alt="Muliya Gold & Diamonds"
                 loading="eager"
                 className="h-10 w-auto object-contain max-w-[180px]"
@@ -29,81 +63,93 @@ export function Footer() {
                 </span>
               ) : null}
             </div>
-            <p className="text-sm mb-4">
-              Premium gold and diamond jewelry crafted with excellence since 1985.
+            <p className="text-sm mb-6 leading-relaxed">
+              Premium gold and diamond jewelry crafted with excellence since 1944.
               Your trusted partner for life's precious moments.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-[#E92247] transition-colors">
-                <Facebook className="w-5 h-5" />
+              <a href="#" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-[#E92247] hover:text-white transition-all duration-300">
+                <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="hover:text-[#E92247] transition-colors">
-                <Instagram className="w-5 h-5" />
+              <a href="#" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-[#E92247] hover:text-white transition-all duration-300">
+                <Instagram className="w-4 h-4" />
               </a>
-              {/* <a href="#" className="hover:text-[#E92247] transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a> */}
+              <a href="#" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-[#E92247] hover:text-white transition-all duration-300">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="text-gray-900 font-semibold mb-5">Quick Links</h3>
+            <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/about" className="hover:text-[#E92247] transition-colors">
+                <Link href="/about" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="hover:text-[#E92247] transition-colors">
+                <Link href="/products" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   Collections
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="hover:text-[#E92247] transition-colors">
+                <Link href="/blog" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   Blog & Journal
                 </Link>
               </li>
               <li>
-                <Link href="/stores" className="hover:text-[#E92247] transition-colors">
+                <Link href="/stores" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   Store Locator
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="hover:text-[#E92247] transition-colors">
+                <Link href="/dashboard" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   My Account
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Policies */}
+          {/* Customer Care */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Customer Care</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="text-gray-900 font-semibold mb-5">Customer Care</h3>
+            <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/policy/terms" className="hover:text-[#E92247] transition-colors">
+                <Link href="/policy/terms" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   Terms & Conditions
                 </Link>
               </li>
               <li>
-                <Link href="/policy/privacy" className="hover:text-[#E92247] transition-colors">
+                <Link href="/policy/privacy" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/policy/return" className="hover:text-[#E92247] transition-colors">
+                <Link href="/policy/return" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   Return Policy
                 </Link>
               </li>
               <li>
-                <Link href="/policy/shipping" className="hover:text-[#E92247] transition-colors">
+                <Link href="/policy/shipping" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   Shipping Information
                 </Link>
               </li>
               <li>
-                <Link href="/policy/gold-scheme" className="hover:text-[#E92247] transition-colors">
+                <Link href="/policy/gold-scheme" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   Gold Scheme
                 </Link>
               </li>
@@ -112,37 +158,37 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Contact Us</h3>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2">
-                <MapPin className="w-5 h-5 text-[#fff] flex-shrink-0 mt-0.5" />
-                <span>MANIPAL CENTRE,
-                  DICKENSON ROAD,
-                  BENGALURU
-                  Karnataka <br /> 574 201</span>
+            <h3 className="text-gray-900 font-semibold mb-5">Contact Us</h3>
+            <ul className="space-y-4 text-sm">
+              <li className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-4 h-4 text-[#E92247]" />
+                </div>
+                <span className="pt-2">MANIPAL CENTRE, DICKENSON ROAD,<br />BENGALURU, Karnataka 574 201</span>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-5 h-5 text-[#FFF] flex-shrink-0" />
+              <li className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-4 h-4 text-[#E92247]" />
+                </div>
                 <span>+91 9844692916</span>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-5 h-5 text-[#FFF] flex-shrink-0" />
+              <li className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-4 h-4 text-[#E92247]" />
+                </div>
                 <span>info@muliya.com</span>
               </li>
             </ul>
-
-            {/* Newsletter */}
-
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
+      <div className="relative z-10 border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-600">
             <p>&copy; 2026 Muliya Gold & Diamonds. All rights reserved.</p>
-
+            <p className="font-medium text-[#E92247]">Creating Happiness Since 1944</p>
           </div>
         </div>
       </div>

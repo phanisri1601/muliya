@@ -255,8 +255,8 @@ export function Home() {
       "/images/video1.mp4",
       "/images/video2.mp4",
       "/images/video3.mp4",
-      // "/images/video4.mp4",
-      // "/images/video5.mp4",
+      "/images/video4.mp4",
+      "/images/video5.mp4",
       // "/images/video6.mp4",
     ],
     [],
@@ -375,8 +375,11 @@ export function Home() {
       </section> */}
       <HeroParallaxBanner />
 
-      <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 bg-white relative overflow-hidden">
+        {/* Decorative gold circles */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-100/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-yellow-100/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl font-serif text-gray-900 text-center">Trending Categories</h2>
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {[
@@ -405,8 +408,11 @@ export function Home() {
         </div>
       </section>
 
-      <section className="bg-[#f6f2ec] my-10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="bg-white my-10 relative overflow-hidden">
+        {/* Decorative gold circles */}
+        <div className="absolute top-10 right-10 w-72 h-72 bg-amber-50/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-10 left-1/4 w-56 h-56 bg-yellow-100/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="relative min-h-[360px] lg:min-h-[520px]">
               <ImageWithFallback
@@ -519,8 +525,11 @@ Our brand is built for every generation—from traditional gold lovers to the co
       </section> */}
 
       {/* Story block */}
-      <section className="py-8 bg-gradient-to-r from-[#E92247]/10 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-8 bg-white relative overflow-hidden">
+        {/* Decorative gold circles */}
+        <div className="absolute top-0 left-0 w-80 h-80 bg-amber-100/25 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 right-1/3 w-64 h-64 bg-yellow-50/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4">
@@ -556,8 +565,12 @@ Our brand is built for every generation—from traditional gold lovers to the co
       </section>
 
       {/* Collections */}
-     <section className="py-8 bg-white">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <section className="py-8 bg-white relative overflow-hidden">
+        {/* Decorative gold circles */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-amber-50/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-20 right-10 w-60 h-60 bg-yellow-100/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-amber-100/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     
     <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-10 text-center">
       Collections
@@ -643,8 +656,12 @@ Our brand is built for every generation—from traditional gold lovers to the co
 </section>
 
       {/* Gold Scheme Section */}
-      <section className="py-12 bg-gradient-to-br from-amber-50 via-white to-amber-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 bg-white relative overflow-hidden">
+        {/* Decorative gold circles */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-100/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-10 left-10 w-72 h-72 bg-yellow-50/40 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-1/3 right-10 w-56 h-56 bg-amber-50/35 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             {/* Left - Content */}
             <motion.div
@@ -732,8 +749,11 @@ Our brand is built for every generation—from traditional gold lovers to the co
       </section>
 
       {/* Identity - Static Layout */}
-      <section className="py-8 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-8 bg-white relative overflow-hidden">
+        {/* Decorative gold circles */}
+        <div className="absolute top-10 right-20 w-64 h-64 bg-amber-100/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-10 w-80 h-80 bg-yellow-50/25 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             {/* Left - Image Only */}
             <motion.div
@@ -786,10 +806,67 @@ Our brand is built for every generation—from traditional gold lovers to the co
         </div>
       </section>
 
-      <section className="py-8 bg-white">
-        <div className="px-4 sm:px-6 lg:px-8">
+      <section className="py-8 bg-white relative overflow-hidden">
+        {/* Decorative light blue circles */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+          <div className="absolute w-96 h-96 bg-blue-100/60 rounded-full blur-3xl top-10 left-10"></div>
+          <div className="absolute w-80 h-80 bg-sky-100/50 rounded-full blur-3xl bottom-20 right-10"></div>
+        </div>
+        <div className="px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="relative mx-auto max-w-6xl">
-            <div className="relative h-[520px] sm:h-[560px] md:h-[600px] flex items-center justify-center">
+            <div className="relative h-[520px] sm:h-[560px] md:h-[600px] flex items-center justify-center select-none"
+              onMouseDown={(e) => {
+                const container = e.currentTarget;
+                container.dataset.isDragging = 'true';
+                container.dataset.startX = e.clientX.toString();
+                container.dataset.scrollLeft = container.scrollLeft.toString();
+              }}
+              onMouseMove={(e) => {
+                const container = e.currentTarget;
+                if (container.dataset.isDragging !== 'true') return;
+                e.preventDefault();
+              }}
+              onMouseUp={(e) => {
+                const container = e.currentTarget;
+                if (container.dataset.isDragging !== 'true') return;
+                container.dataset.isDragging = 'false';
+                const startX = parseInt(container.dataset.startX || '0');
+                const diff = e.clientX - startX;
+                const threshold = 50;
+                if (diff > threshold) {
+                  prevReel();
+                } else if (diff < -threshold) {
+                  nextReel();
+                }
+              }}
+              onMouseLeave={(e) => {
+                const container = e.currentTarget;
+                container.dataset.isDragging = 'false';
+              }}
+              onTouchStart={(e) => {
+                const container = e.currentTarget;
+                container.dataset.isDragging = 'true';
+                container.dataset.startX = e.touches[0].clientX.toString();
+              }}
+              onTouchMove={(e) => {
+                const container = e.currentTarget;
+                if (container.dataset.isDragging !== 'true') return;
+              }}
+              onTouchEnd={(e) => {
+                const container = e.currentTarget;
+                if (container.dataset.isDragging !== 'true') return;
+                container.dataset.isDragging = 'false';
+                const startX = parseInt(container.dataset.startX || '0');
+                const diff = e.changedTouches[0].clientX - startX;
+                const threshold = 50;
+                if (diff > threshold) {
+                  prevReel();
+                } else if (diff < -threshold) {
+                  nextReel();
+                }
+              }}
+              style={{ cursor: 'grab' }}
+            >
               <button
                 type="button"
                 onClick={prevReel}
@@ -819,6 +896,7 @@ Our brand is built for every generation—from traditional gold lovers to the co
 
                 const isActive = rel === 0;
                 const isNeighbor = Math.abs(rel) === 1;
+                const isSecondNeighbor = Math.abs(rel) === 2;
 
                 let translateX = 0;
                 let scale = 1;
@@ -835,9 +913,14 @@ Our brand is built for every generation—from traditional gold lovers to the co
                   scale = 0.86;
                   opacity = 1;
                   z = 20;
+                } else if (isSecondNeighbor) {
+                  translateX = rel * 145;
+                  scale = 0.83;
+                  opacity = 0.95;
+                  z = 15;
                 } else {
-                  translateX = rel * 210;
-                  scale = 0.78;
+                  translateX = rel * 240;
+                  scale = 0.7;
                   opacity = 0;
                   z = 10;
                 }
@@ -863,10 +946,11 @@ Our brand is built for every generation—from traditional gold lovers to the co
                       <video
                         key={isActive ? src : `${src}-inactive`}
                         src={src}
-                        autoPlay={isActive}
+                        autoPlay={isActive || isNeighbor || isSecondNeighbor}
                         muted
                         loop
                         playsInline
+                        preload="auto"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -918,8 +1002,12 @@ Our brand is built for every generation—from traditional gold lovers to the co
     
 
       {/* Testimonials - BlueStone Style */}
-      <section className="py-8 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-8 bg-white relative overflow-hidden">
+        {/* Decorative gold circles */}
+        <div className="absolute top-10 left-10 w-80 h-80 bg-amber-100/25 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-10 right-20 w-72 h-72 bg-yellow-50/35 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/3 w-56 h-56 bg-amber-50/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4">
               Muliya & Me
@@ -1045,7 +1133,7 @@ Our brand is built for every generation—from traditional gold lovers to the co
       </section>
 
       {/* Details */}
-   <section className="relative py-20 bg-gradient-to-b from-[#fffaf5] to-white overflow-hidden">
+   <section className="relative py-20 bg-white overflow-hidden">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     {/* Heading */}
@@ -1069,13 +1157,13 @@ Our brand is built for every generation—from traditional gold lovers to the co
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: idx * 0.08 }}
         >
-          <div className="relative group h-full rounded-3xl p-[1px] bg-gradient-to-br from-amber-200 via-white to-amber-100 hover:from-[#E92247] hover:to-amber-200 transition duration-500">
+          <div className="relative group h-full rounded-3xl p-[1px] bg-gradient-to-br from-blue-100 via-white to-blue-50 hover:from-blue-200 hover:to-blue-100 transition duration-500">
 
             {/* Inner Card */}
-            <div className="h-full bg-white/80 backdrop-blur-xl rounded-3xl p-8 flex flex-col justify-between shadow-md group-hover:shadow-2xl transition-all duration-500">
+            <div className="h-full bg-slate-50/90 backdrop-blur-xl rounded-3xl p-8 flex flex-col justify-between shadow-md group-hover:shadow-2xl transition-all duration-500">
 
               {/* Icon */}
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-100 to-white flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:shadow-lg transition">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-slate-50 flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:shadow-lg transition">
                 <c.icon className="w-7 h-7 text-[#E92247]" />
               </div>
 
@@ -1100,8 +1188,11 @@ Our brand is built for every generation—from traditional gold lovers to the co
 
   {/* Background Glow Effect */}
   <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-    <div className="absolute w-96 h-96 bg-[#E92247]/10 rounded-full blur-3xl top-10 left-10"></div>
-    <div className="absolute w-96 h-96 bg-amber-200/20 rounded-full blur-3xl bottom-10 right-10"></div>
+    <div className="absolute w-96 h-96 bg-blue-100/50 rounded-full blur-3xl top-10 left-10"></div>
+    <div className="absolute w-80 h-80 bg-sky-100/40 rounded-full blur-3xl top-40 right-20"></div>
+    <div className="absolute w-72 h-72 bg-blue-50/60 rounded-full blur-3xl bottom-20 left-1/3"></div>
+    <div className="absolute w-64 h-64 bg-sky-50/50 rounded-full blur-3xl top-1/2 right-1/4"></div>
+    <div className="absolute w-80 h-80 bg-blue-100/30 rounded-full blur-3xl bottom-10 right-10"></div>
   </div>
 </section>
 

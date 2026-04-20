@@ -112,7 +112,7 @@ const diamondCategories = [
   },
   {
     name: "Necklaces",
-    slug: "necklaces",
+    slug: "necklace",
     image: "/images/daimond/diamond-chain.jpeg",
   },
   {
@@ -280,7 +280,7 @@ export function Header() {
           {/* Search */}
           <form
             onSubmit={handleSearch}
-            className="flex items-center gap-0 w-full max-w-[520px]"
+            className="flex items-center gap-0 w-full max-w-[390px] ml-auto"
           >
             <div className="relative w-full">
               <input

@@ -5,13 +5,10 @@ import { useEffect, useMemo, useState } from "react";
 export function HeroParallaxBanner() {
   const images = useMemo(
     () => [
-      "/images/banners1.png",
-       "/images/banners7.png",
-      "/images/banners2.png",
-      "/images/banners3.png",
-      "/images/banners4.png",
-      "/images/banners5.png",
-      
+      "/images/banner/Artboard%201%20copy%203.png",
+      "/images/banner/Artboard%201%20copy%204.png",
+      "/images/banner/Artboard%201%20copy%205.png",
+      "/images/banner/Artboard%201%20copy%206.png",
     ],
     [],
   );
