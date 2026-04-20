@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ChevronRight, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ImageWithFallbackNext } from "@/app/components/ImageWithFallbackNext";
+import { ProductFilter } from "@/app/components/ProductFilter";
 
 const formatINR = (value: number) => new Intl.NumberFormat("en-IN").format(value);
 
@@ -178,6 +180,8 @@ const silverProducts: Product[] = [
 export default function SilverPage() {
   const { addToCart } = useCart();
   const router = useRouter();
+  const [filteredProducts, setFilteredProducts] = useState(silverProducts);
+  const [sortOption, setSortOption] = useState("latest");
 
   const handleAddToCart = (product: Product, e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -195,6 +199,67 @@ export default function SilverPage() {
 
   const handleProductClick = (productId: string) => {
     router.push(`/products/silver/${productId}`);
+  };
+
+  const handleSortChange = (sort: string) => {
+    setSortOption(sort);
+    let sorted = [...silverProducts];
+    switch (sort) {
+      case "price-asc":
+        sorted.sort((a, b) => a.price - b.price);
+        break;
+      case "price-desc":
+        sorted.sort((a, b) => b.price - a.price);
+        break;
+      case "discount":
+        sorted.sort((a, b) => {
+          const discountA = a.originalPrice ? (a.originalPrice - a.price) / a.originalPrice : 0;
+          const discountB = b.originalPrice ? (b.originalPrice - b.price) / b.originalPrice : 0;
+          return discountB - discountA;
+        });
+        break;
+      default:
+        break;
+    }
+    setFilteredProducts(sorted);
+  };
+
+  const handlePriceRangeChange = (range: string) => {
+    const [min, max] = range.split("-").map(v => v === "+" ? Infinity : parseInt(v.replace("+", "")));
+    const filtered = silverProducts.filter(product => {
+      const price = product.price;
+      if (max === Infinity) return price >= min;
+      return price >= min && price <= max;
+    });
+    setFilteredProducts(filtered);
+  };
+
+  const handleMaterialChange = (material: string) => {
+    const filtered = silverProducts.filter(product => 
+      product.category.toLowerCase().includes(material)
+    );
+    setFilteredProducts(filtered);
+  };
+
+  const handleWeightChange = (weight: string) => {
+    const [min, max] = weight.split("-").map(v => v === "+" ? Infinity : parseFloat(v));
+    const filtered = silverProducts.filter(product => {
+      if (!product.weight) return false;
+      const weightNum = parseFloat(product.weight.replace(/[^0-9.]/g, ""));
+      if (max === Infinity) return weightNum >= min;
+      return weightNum >= min && weightNum <= max;
+    });
+    setFilteredProducts(filtered);
+  };
+
+  const handleDiscountChange = (discount: string) => {
+    const filtered = silverProducts.filter(product => product.originalPrice !== undefined);
+    setFilteredProducts(filtered);
+  };
+
+  const handleClearFilters = () => {
+    setFilteredProducts(silverProducts);
+    setSortOption("latest");
   };
 
   const subcategories = ["Rings", "Bracelets", "Watches", "Pendants"];
@@ -245,16 +310,35 @@ export default function SilverPage() {
 
       {/* Products by Subcategory */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-        {subcategories.map((subcategory) => {
-          const products = silverProducts.filter(p => p.subcategory === subcategory);
-          return (
-            <section key={subcategory} id={subcategory.toLowerCase()} className="scroll-mt-24">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl md:text-3xl font-serif text-gray-900">Silver {subcategory}</h2>
-                <span className="text-sm text-gray-500">{products.length} Products</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {products.map((product) => (
+        <div className="flex gap-8">
+          {/* Sidebar - Desktop */}
+          <ProductFilter
+            onSortChange={handleSortChange}
+            onPriceRangeChange={handlePriceRangeChange}
+            onMaterialChange={handleMaterialChange}
+            onWeightChange={handleWeightChange}
+            onDiscountChange={handleDiscountChange}
+            onClearFilters={handleClearFilters}
+          />
+          
+          {/* Products */}
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-serif text-gray-900">
+                Showing {filteredProducts.length} items
+              </h2>
+            </div>
+            {subcategories.map((subcategory) => {
+              const products = filteredProducts.filter(p => p.subcategory === subcategory);
+              if (products.length === 0) return null;
+              return (
+                <section key={subcategory} id={subcategory.toLowerCase()} className="scroll-mt-24 mb-16">
+                  <div className="flex items-center justify-between mb-8">
+                    <h2 className="text-2xl md:text-3xl font-serif text-gray-900">Silver {subcategory}</h2>
+                    <span className="text-sm text-gray-500">{products.length} Products</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {products.map((product) => (
                   <div 
                     key={product.id} 
                     onClick={() => handleProductClick(product.id)} 
@@ -309,6 +393,8 @@ export default function SilverPage() {
             </section>
           );
         })}
+          </div>
+        </div>
       </div>
     </main>
   );

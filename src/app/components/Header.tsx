@@ -840,25 +840,25 @@ export function Header() {
                         <div className="bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden w-[220px] py-2">
                           <Link
                             href="/policy/gold-scheme"
-                            className="block px-5 py-3 text-[#8B4513] hover:bg-gray-50 hover:text-[#E92247] transition-colors text-base"
+                            className="block px-5 py-3 text-gray-900 hover:bg-gray-50 hover:text-[#E92247] transition-colors text-base"
                           >
                             Gold Buying Plans
                           </Link>
                           <Link
                             href="/blog"
-                            className="block px-5 py-3 text-[#8B4513] hover:bg-gray-50 hover:text-[#E92247] transition-colors text-base"
+                            className="block px-5 py-3 text-gray-900 hover:bg-gray-50 hover:text-[#E92247] transition-colors text-base"
                           >
                             Blog
                           </Link>
                           <Link
                             href="/careers"
-                            className="block px-5 py-3 text-[#8B4513] hover:bg-gray-50 hover:text-[#E92247] transition-colors text-base"
+                            className="block px-5 py-3 text-gray-900 hover:bg-gray-50 hover:text-[#E92247] transition-colors text-base"
                           >
                             Careers
                           </Link>
                           <Link
                             href="/contact"
-                            className="block px-5 py-3 text-[#8B4513] hover:bg-gray-50 hover:text-[#E92247] transition-colors text-base"
+                            className="block px-5 py-3 text-gray-900 hover:bg-gray-50 hover:text-[#E92247] transition-colors text-base"
                           >
                             Contact Us
                           </Link>

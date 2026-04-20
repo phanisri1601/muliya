@@ -446,8 +446,7 @@ Our brand is built for every generation—from traditional gold lovers to the co
       </section>
       <AboutSection/>
 
-      {/* Shop By Category - Horizontal Carousel */}
-      <section className="py-8 bg-white">
+      {/* <section className="py-8 bg-white">
         <div className="relative">
           <div className="flex overflow-x-auto scrollbar-hide">
             {[
@@ -477,13 +476,11 @@ Our brand is built for every generation—from traditional gold lovers to the co
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
                     
-                    {/* Bottom content container */}
                     <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
                       <span className="text-white text-lg font-medium tracking-wider uppercase">
                         {cat.name}
                       </span>
                       
-                      {/* Arrow - appears on hover */}
                       <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
                         <svg 
                           width="32" 
@@ -504,7 +501,7 @@ Our brand is built for every generation—from traditional gold lovers to the co
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Quote */}
       {/* <section className="py-8 bg-white">
@@ -560,7 +557,7 @@ Our brand is built for every generation—from traditional gold lovers to the co
 
       <section className="w-full">
         <div className="relative w-full h-[60vh]">
-          <ImageWithFallback src="/images/banners7.png" alt="Gold collection" className="w-full h-full object-cover" />
+          <ImageWithFallback src="/images/banners4.png" alt="Gold collection" className="w-full h-full object-cover" />
         </div>
       </section>
 
@@ -572,9 +569,13 @@ Our brand is built for every generation—from traditional gold lovers to the co
         <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-amber-100/20 rounded-full blur-3xl pointer-events-none"></div>
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     
-    <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-10 text-center">
+    <h2 className="text-4xl md:text-5xl  font-serif text-gray-900 mb-10 text-center">
       Collections
     </h2>
+    <h3 className="text-2xl md:text-4xl font-serif  mb-10 text-center">
+      Jewellery for every generation and every occasion
+
+    </h3>
 
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
       
@@ -813,6 +814,7 @@ Our brand is built for every generation—from traditional gold lovers to the co
           <div className="absolute w-80 h-80 bg-sky-100/50 rounded-full blur-3xl bottom-20 right-10"></div>
         </div>
         <div className="px-4 sm:px-6 lg:px-8 relative z-10">
+          <h2 className="text-4xl md:text-5xl font-serif text-gray-900 text-center mb-8">Experience us in seconds</h2>
           <div className="relative mx-auto max-w-6xl">
             <div className="relative h-[520px] sm:h-[560px] md:h-[600px] flex items-center justify-center select-none"
               onMouseDown={(e) => {

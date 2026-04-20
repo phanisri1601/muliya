@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ChevronRight, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ImageWithFallbackNext } from "@/app/components/ImageWithFallbackNext";
+import { ProductFilter } from "@/app/components/ProductFilter";
 
 const formatINR = (value: number) => new Intl.NumberFormat("en-IN").format(value);
 
@@ -139,6 +141,8 @@ const diamondPendants: Product[] = [
 export default function DiamondPendantsPage() {
   const { addToCart } = useCart();
   const router = useRouter();
+  const [filteredPendants, setFilteredPendants] = useState(diamondPendants);
+  const [sortOption, setSortOption] = useState("latest");
 
   const handleAddToCart = (product: Product, e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -148,6 +152,67 @@ export default function DiamondPendantsPage() {
 
   const handleProductClick = (productId: string) => {
     router.push(`/products/diamond-pendants/${productId}`);
+  };
+
+  const handleSortChange = (sort: string) => {
+    setSortOption(sort);
+    let sorted = [...diamondPendants];
+    switch (sort) {
+      case "price-asc":
+        sorted.sort((a, b) => a.price - b.price);
+        break;
+      case "price-desc":
+        sorted.sort((a, b) => b.price - a.price);
+        break;
+      case "discount":
+        sorted.sort((a, b) => {
+          const discountA = a.originalPrice ? (a.originalPrice - a.price) / a.originalPrice : 0;
+          const discountB = b.originalPrice ? (b.originalPrice - b.price) / b.originalPrice : 0;
+          return discountB - discountA;
+        });
+        break;
+      default:
+        break;
+    }
+    setFilteredPendants(sorted);
+  };
+
+  const handlePriceRangeChange = (range: string) => {
+    const [min, max] = range.split("-").map(v => v === "+" ? Infinity : parseInt(v.replace("+", "")));
+    const filtered = diamondPendants.filter(pendant => {
+      const price = pendant.price;
+      if (max === Infinity) return price >= min;
+      return price >= min && price <= max;
+    });
+    setFilteredPendants(filtered);
+  };
+
+  const handleMaterialChange = (material: string) => {
+    const filtered = diamondPendants.filter(pendant => 
+      pendant.category.toLowerCase().includes(material)
+    );
+    setFilteredPendants(filtered);
+  };
+
+  const handleWeightChange = (weight: string) => {
+    const [min, max] = weight.split("-").map(v => v === "+" ? Infinity : parseFloat(v));
+    const filtered = diamondPendants.filter(pendant => {
+      if (!pendant.weight) return false;
+      const weightNum = parseFloat(pendant.weight.replace(/[^0-9.]/g, ""));
+      if (max === Infinity) return weightNum >= min;
+      return weightNum >= min && weightNum <= max;
+    });
+    setFilteredPendants(filtered);
+  };
+
+  const handleDiscountChange = (discount: string) => {
+    const filtered = diamondPendants.filter(pendant => pendant.originalPrice !== undefined);
+    setFilteredPendants(filtered);
+  };
+
+  const handleClearFilters = () => {
+    setFilteredPendants(diamondPendants);
+    setSortOption("latest");
   };
 
   return (
@@ -177,9 +242,28 @@ export default function DiamondPendantsPage() {
         </div>
       </div>
 
+      {/* Products Grid with Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {diamondPendants.map((pendant) => (
+        <div className="flex gap-8">
+          {/* Sidebar - Desktop */}
+          <ProductFilter
+            onSortChange={handleSortChange}
+            onPriceRangeChange={handlePriceRangeChange}
+            onMaterialChange={handleMaterialChange}
+            onWeightChange={handleWeightChange}
+            onDiscountChange={handleDiscountChange}
+            onClearFilters={handleClearFilters}
+          />
+          
+          {/* Products */}
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-serif text-gray-900">
+                Showing {filteredPendants.length} items
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredPendants.map((pendant) => (
             <div key={pendant.id} onClick={() => handleProductClick(pendant.id)} className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
               <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
                 <ImageWithFallbackNext src={pendant.image} alt={pendant.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
@@ -201,6 +285,8 @@ export default function DiamondPendantsPage() {
               </div>
             </div>
           ))}
+            </div>
+          </div>
         </div>
       </div>
     </main>

@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ChevronRight, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ImageWithFallbackNext } from "@/app/components/ImageWithFallbackNext";
+import { ProductFilter } from "@/app/components/ProductFilter";
 
 const formatINR = (value: number) => new Intl.NumberFormat("en-IN").format(value);
 
@@ -139,6 +141,8 @@ const rings: Product[] = [
 export default function RingsPage() {
   const { addToCart } = useCart();
   const router = useRouter();
+  const [filteredRings, setFilteredRings] = useState(rings);
+  const [sortOption, setSortOption] = useState("latest");
 
   const handleAddToCart = (product: Product, e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -156,6 +160,67 @@ export default function RingsPage() {
 
   const handleProductClick = (productId: string) => {
     router.push(`/products/rings/${productId}`);
+  };
+
+  const handleSortChange = (sort: string) => {
+    setSortOption(sort);
+    let sorted = [...rings];
+    switch (sort) {
+      case "price-asc":
+        sorted.sort((a, b) => a.price - b.price);
+        break;
+      case "price-desc":
+        sorted.sort((a, b) => b.price - a.price);
+        break;
+      case "discount":
+        sorted.sort((a, b) => {
+          const discountA = a.originalPrice ? (a.originalPrice - a.price) / a.originalPrice : 0;
+          const discountB = b.originalPrice ? (b.originalPrice - b.price) / b.originalPrice : 0;
+          return discountB - discountA;
+        });
+        break;
+      default:
+        break;
+    }
+    setFilteredRings(sorted);
+  };
+
+  const handlePriceRangeChange = (range: string) => {
+    const [min, max] = range.split("-").map(v => v === "+" ? Infinity : parseInt(v.replace("+", "")));
+    const filtered = rings.filter(ring => {
+      const price = ring.price;
+      if (max === Infinity) return price >= min;
+      return price >= min && price <= max;
+    });
+    setFilteredRings(filtered);
+  };
+
+  const handleMaterialChange = (material: string) => {
+    const filtered = rings.filter(ring => 
+      ring.category.toLowerCase().includes(material)
+    );
+    setFilteredRings(filtered);
+  };
+
+  const handleWeightChange = (weight: string) => {
+    const [min, max] = weight.split("-").map(v => v === "+" ? Infinity : parseFloat(v));
+    const filtered = rings.filter(ring => {
+      if (!ring.weight) return false;
+      const weightNum = parseFloat(ring.weight.replace(/[^0-9.]/g, ""));
+      if (max === Infinity) return weightNum >= min;
+      return weightNum >= min && weightNum <= max;
+    });
+    setFilteredRings(filtered);
+  };
+
+  const handleDiscountChange = (discount: string) => {
+    const filtered = rings.filter(ring => ring.originalPrice !== undefined);
+    setFilteredRings(filtered);
+  };
+
+  const handleClearFilters = () => {
+    setFilteredRings(rings);
+    setSortOption("latest");
   };
 
   return (
@@ -195,10 +260,28 @@ export default function RingsPage() {
         </div>
       </div>
 
-      {/* Products Grid */}
+      {/* Products Grid with Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {rings.map((ring) => (
+        <div className="flex gap-8">
+          {/* Sidebar - Desktop */}
+          <ProductFilter
+            onSortChange={handleSortChange}
+            onPriceRangeChange={handlePriceRangeChange}
+            onMaterialChange={handleMaterialChange}
+            onWeightChange={handleWeightChange}
+            onDiscountChange={handleDiscountChange}
+            onClearFilters={handleClearFilters}
+          />
+          
+          {/* Products */}
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-serif text-gray-900">
+                Showing {filteredRings.length} items
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredRings.map((ring) => (
             <div 
               key={ring.id}
               onClick={() => handleProductClick(ring.id)}
@@ -276,6 +359,8 @@ export default function RingsPage() {
               </div>
             </div>
           ))}
+            </div>
+          </div>
         </div>
       </div>
     </main>

@@ -190,7 +190,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                     metal: product.metal,
                     weight: product.weight,
                   })}
-                  className="flex-1 bg-white text-black border border-gray-300 py-4 px-6 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+                  className="flex-1 bg-white text-black border border-gray-300 py-3 px-6 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
                 >
                   <ShoppingCart className="w-5 h-5" />
                   Add to Cart
@@ -210,7 +210,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                     });
                     router.push("/checkout");
                   }}
-                  className="flex-1 bg-[#E92247] text-white py-4 px-6 rounded-lg font-medium hover:bg-[#d11f3f] transition-colors"
+                  className="flex-1 bg-[#E92247] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#d11f3f] transition-colors"
                 >
                   Buy Now
                 </button>

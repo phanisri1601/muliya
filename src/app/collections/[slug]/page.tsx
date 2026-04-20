@@ -1,8 +1,12 @@
+"use client";
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, use } from "react";
 import { collections, getCollectionBySlug, formatPrice } from "@/app/data/collections";
 import { ChevronRight, Heart, ChevronDown } from "lucide-react";
+import { ProductFilter } from "@/app/components/ProductFilter";
 
 interface CollectionPageProps {
   params: Promise<{
@@ -10,35 +14,77 @@ interface CollectionPageProps {
   }>;
 }
 
-export function generateStaticParams() {
-  return collections.map((collection) => ({
-    slug: collection.slug,
-  }));
-}
-
-export async function generateMetadata({ params }: CollectionPageProps) {
-  const { slug } = await params;
-  const collection = getCollectionBySlug(slug);
-  
-  if (!collection) {
-    return {
-      title: "Collection Not Found",
-    };
-  }
-  
-  return {
-    title: `${collection.name} Collection | Muliya Gold & Diamonds`,
-    description: collection.description,
-  };
-}
-
-export default async function CollectionPage({ params }: CollectionPageProps) {
-  const { slug } = await params;
+export default function CollectionPage({ params }: CollectionPageProps) {
+  const { slug } = use(params);
   const collection = getCollectionBySlug(slug);
   
   if (!collection) {
     notFound();
   }
+
+  const [filteredProducts, setFilteredProducts] = useState(collection.products);
+  const [sortOption, setSortOption] = useState("latest");
+
+  const handleSortChange = (sort: string) => {
+    setSortOption(sort);
+    let sorted = [...collection.products];
+    switch (sort) {
+      case "price-asc":
+        sorted.sort((a, b) => a.price - b.price);
+        break;
+      case "price-desc":
+        sorted.sort((a, b) => b.price - a.price);
+        break;
+      case "discount":
+        sorted.sort((a, b) => {
+          const discountA = a.originalPrice ? (a.originalPrice - a.price) / a.originalPrice : 0;
+          const discountB = b.originalPrice ? (b.originalPrice - b.price) / b.originalPrice : 0;
+          return discountB - discountA;
+        });
+        break;
+      default:
+        break;
+    }
+    setFilteredProducts(sorted);
+  };
+
+  const handlePriceRangeChange = (range: string) => {
+    const [min, max] = range.split("-").map(v => v === "+" ? Infinity : parseInt(v.replace("+", "")));
+    const filtered = collection.products.filter(product => {
+      const price = product.price;
+      if (max === Infinity) return price >= min;
+      return price >= min && price <= max;
+    });
+    setFilteredProducts(filtered);
+  };
+
+  const handleMaterialChange = (material: string) => {
+    const filtered = collection.products.filter(product => 
+      product.metal?.toLowerCase().includes(material)
+    );
+    setFilteredProducts(filtered);
+  };
+
+  const handleWeightChange = (weight: string) => {
+    const [min, max] = weight.split("-").map(v => v === "+" ? Infinity : parseFloat(v));
+    const filtered = collection.products.filter(product => {
+      if (!product.weight) return false;
+      const weightNum = parseFloat(product.weight.replace(/[^0-9.]/g, ""));
+      if (max === Infinity) return weightNum >= min;
+      return weightNum >= min && weightNum <= max;
+    });
+    setFilteredProducts(filtered);
+  };
+
+  const handleDiscountChange = (discount: string) => {
+    const filtered = collection.products.filter(product => product.originalPrice !== undefined);
+    setFilteredProducts(filtered);
+  };
+
+  const handleClearFilters = () => {
+    setFilteredProducts(collection.products);
+    setSortOption("latest");
+  };
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -92,21 +138,32 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
       {/* Products Section */}
       <section className="py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl md:text-3xl font-serif text-gray-900">
-              {collection.name} Products
-            </h2>
-            <div className="flex items-center gap-4">
-              <span className="text-gray-600 text-sm">
-                Showing {collection.products.length} items
-              </span>
-            </div>
-          </div>
+          <div className="flex gap-8">
+            {/* Sidebar - Desktop */}
+            <ProductFilter
+              onSortChange={handleSortChange}
+              onPriceRangeChange={handlePriceRangeChange}
+              onMaterialChange={handleMaterialChange}
+              onWeightChange={handleWeightChange}
+              onDiscountChange={handleDiscountChange}
+              onClearFilters={handleClearFilters}
+            />
+            
+            {/* Products */}
+            <div className="flex-1">
+              {/* Section Header */}
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl md:text-3xl font-serif text-gray-900">
+                  {collection.name} Products
+                </h2>
+                <span className="text-gray-600 text-sm">
+                  Showing {filteredProducts.length} items
+                </span>
+              </div>
 
-          {/* Products Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {collection.products.map((product) => (
+              {/* Products Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredProducts.map((product) => (
               <Link
                 key={product.id}
                 href={`/collections/${collection.slug}/products/${product.id.replace(":", "-")}`}
@@ -169,14 +226,23 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
                   </div>
                   
                   {/* Discount Badge */}
-                  {product.originalPrice && (
-                    <div className="mt-2 inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded">
-                      {Math.round((1 - product.price / product.originalPrice) * 100)}% OFF
-                    </div>
-                  )}
+                  <div className="mt-2 h-6">
+                    {product.originalPrice && (
+                      <div className="inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded">
+                        {Math.round((1 - product.price / product.originalPrice) * 100)}% OFF
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Buy Now Button */}
+                  <button className="mt-4 w-full bg-[#E92247] text-white py-2 rounded-lg text-sm font-medium hover:bg-[#d11f3f] transition-colors">
+                    Buy Now
+                  </button>
                 </div>
               </Link>
             ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

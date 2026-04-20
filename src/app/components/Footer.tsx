@@ -93,7 +93,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                <Link href="/collections" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   Collections
                 </Link>
@@ -105,15 +105,9 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/stores" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                <Link href="/store-locator" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   Store Locator
-                </Link>
-              </li>
-              <li>
-                <Link href="/dashboard" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                  My Account
                 </Link>
               </li>
             </ul>
@@ -142,15 +136,15 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/policy/shipping" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                <Link href="/policy/return-refund" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                  Shipping Information
+                  Scheme Terms
                 </Link>
               </li>
               <li>
-                <Link href="/policy/gold-scheme" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
+                <Link href="/policy/pip" className="hover:text-[#E92247] transition-colors flex items-center gap-2 group">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#E92247] opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                  Gold Scheme
+                  PIP Terms
                 </Link>
               </li>
             </ul>
