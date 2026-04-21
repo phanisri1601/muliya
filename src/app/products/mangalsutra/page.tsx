@@ -150,6 +150,15 @@ export default function MangalsutraPage() {
     toast.success(`${product.name} added to cart!`);
   };
 
+  const handleBuyNow = (product: Product, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    addToCart({ id: product.id, name: product.name, price: product.price, originalPrice: product.originalPrice, image: product.image, collection: product.category, collectionSlug: "mangalsutra" });
+    toast.success(`${product.name} added to cart! Redirecting to checkout...`);
+    setTimeout(() => {
+      router.push("/checkout");
+    }, 1000);
+  };
+
   const handleProductClick = (productId: string) => {
     router.push(`/products/mangalsutra/${productId}`);
   };
@@ -262,9 +271,9 @@ export default function MangalsutraPage() {
                 Showing {filteredMangalsutras.length} items
               </h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredMangalsutras.map((mangalsutra) => (
-            <div key={mangalsutra.id} onClick={() => handleProductClick(mangalsutra.id)} className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
+            <div key={mangalsutra.id} onClick={() => handleProductClick(mangalsutra.id)} className="group bg-white overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
               <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
                 <ImageWithFallbackNext src={mangalsutra.image} alt={mangalsutra.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
                 <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
@@ -275,13 +284,16 @@ export default function MangalsutraPage() {
               </div>
               <div className="p-5 flex flex-col flex-grow">
                 <h3 className="font-serif text-lg text-gray-900 mb-2 group-hover:text-[#E92247] transition-colors">{mangalsutra.name}</h3>
-                <p className="text-gray-500 text-sm mb-3 line-clamp-2">{mangalsutra.description}</p>
+                <div className="flex items-center gap-3 text-xs text-gray-400 mb-3"><span>{mangalsutra.weight}</span><span>•</span><span>{mangalsutra.purity}</span></div>
                 <div className="flex items-center gap-3 text-xs text-gray-400 mb-3"><span>{mangalsutra.weight}</span><span>•</span><span>{mangalsutra.purity}</span></div>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-xl font-bold text-[#E92247]">₹{formatINR(mangalsutra.price)}</span>
                   {mangalsutra.originalPrice && <span className="text-sm text-gray-400 line-through">₹{formatINR(mangalsutra.originalPrice)}</span>}
                 </div>
-                <button onClick={(e) => handleAddToCart(mangalsutra, e)} className="w-full flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-3 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium mt-auto"><ShoppingCart className="w-4 h-4" />Add to Cart</button>
+                <div className="flex gap-2 mt-auto">
+                  <button onClick={(e) => handleAddToCart(mangalsutra, e)} className="flex-1 flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-2 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium text-sm"><ShoppingCart className="w-4 h-4" />Add to Cart</button>
+                  <button onClick={(e) => handleBuyNow(mangalsutra, e)} className="flex-1 bg-[#E92247] text-white py-2 rounded-xl hover:bg-[#d11f3f] transition-colors font-medium text-sm">Buy Now</button>
+                </div>
               </div>
             </div>
           ))}

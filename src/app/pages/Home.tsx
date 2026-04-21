@@ -375,34 +375,58 @@ export function Home() {
       </section> */}
       <HeroParallaxBanner />
 
-      <section className="py-12 bg-white relative overflow-hidden">
-        {/* Decorative gold circles */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-100/30 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-yellow-100/40 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-3xl md:text-4xl font-serif text-gray-900 text-center">Trending Categories</h2>
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+      <section className="py-8 bg-white">
+        <div className="relative">
+          <div className="flex overflow-x-auto scrollbar-hide">
             {[
-              { title: "Gold Earrings", href: "/products/earrings", image: "/images/categories/earings-c.png" },
-              { title: "Diamond Ring", href: "/products/diamond-rings", image: "/images/categories/ring-c.png" },
-              { title: "Gold Bangles", href: "/products/bangles", image: "/images/categories/bangles-c.png" },
-              { title: "Diamond Pendant", href: "/products/diamond-pendants", image: "/images/categories/pendent-c.png" },
-              { title: "Mangalsutra", href: "/products/mangalsutra", image: "/images/categories/mangalsutra-c.png" },
-            ].map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                className="group relative overflow-hidden rounded-none border border-gray-200 bg-white shadow-sm"
+  { name: "RINGS", slug: "rings", image: "/images/categories/ring-c.png" },
+  { name: "EARRINGS", slug: "earrings", image: "/images/categories/earings-c.png" },
+  { name: "PENDANTS", slug: "pendants", image: "/images/categories/pendent-c.png" },
+  { name: "BANGLES", slug: "bangles", image: "/images/categories/bangles-c.png" },
+  { name: "BRACELETS", slug: "bracelets", image: "/images/categories/chain-c2.png" }, // adjust if needed
+  { name: "MANGALSUTRA", slug: "mangalsutra", image: "/images/categories/mangalsutra-c.png" },
+  { name: "NECKLACE", slug: "necklaces", image: "/images/categories/necklece-c.png" },
+  { name: "CHAIN", slug: "chains", image: "/images/categories/chain-c.png" },
+].map((cat, idx) => (
+              <motion.div
+                key={cat.slug}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.05 }}
+                className="relative flex-shrink-0 w-[25%] min-w-[300px] aspect-[3/5] group cursor-pointer overflow-hidden"
               >
-                <div className="relative aspect-[4/5]">
-                  <ImageWithFallback src={item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
-                  <div className="absolute inset-x-0 bottom-0 px-3 py-3 bg-gradient-to-t from-black/60 to-transparent">
-                    <p className="text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-white text-center drop-shadow">
-                      {item.title}
-                    </p>
+                <Link href={`/products/${cat.slug}`} className="block w-full h-full">
+                  <div className="relative w-full h-full">
+                    <ImageWithFallback
+                      src={cat.image}
+                      alt={cat.name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+                    
+                    <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
+                      <span className="text-white text-lg font-medium tracking-wider uppercase">
+                        {cat.name}
+                      </span>
+                      
+                      <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
+                        <svg 
+                          width="32" 
+                          height="32" 
+                          viewBox="0 0 24 24" 
+                          fill="none" 
+                          stroke="white" 
+                          strokeWidth="1.5"
+                          className="transition-transform duration-300 group-hover:scale-110"
+                        >
+                          <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -416,7 +440,7 @@ export function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="relative min-h-[360px] lg:min-h-[520px]">
               <ImageWithFallback
-                src="/images/young-model-demonstrating-expensive-jewelry.jpg"
+                src="images/modelwith necklace.png"
                 alt="Who we are today"
                 className="absolute inset-0 h-full w-full object-cover"
               />
@@ -808,10 +832,10 @@ Our brand is built for every generation—from traditional gold lovers to the co
       </section>
 
       <section className="py-8 bg-white relative overflow-hidden">
-        {/* Decorative light blue circles */}
+        {/* Decorative blue circles */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-          <div className="absolute w-96 h-96 bg-blue-100/60 rounded-full blur-3xl top-10 left-10"></div>
-          <div className="absolute w-80 h-80 bg-sky-100/50 rounded-full blur-3xl bottom-20 right-10"></div>
+          <div className="absolute w-96 h-96 bg-blue-300/60 rounded-full blur-3xl top-10 left-10"></div>
+          <div className="absolute w-80 h-80 bg-sky-300/50 rounded-full blur-3xl bottom-20 right-10"></div>
         </div>
         <div className="px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-4xl md:text-5xl font-serif text-gray-900 text-center mb-8">Experience us in seconds</h2>
@@ -1159,13 +1183,13 @@ Our brand is built for every generation—from traditional gold lovers to the co
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: idx * 0.08 }}
         >
-          <div className="relative group h-full rounded-3xl p-[1px] bg-gradient-to-br from-blue-100 via-white to-blue-50 hover:from-blue-200 hover:to-blue-100 transition duration-500">
+          <div className="relative group h-full rounded-3xl p-[1px] bg-gradient-to-br from-blue-300 via-white to-blue-200 hover:from-blue-400 hover:to-blue-300 transition duration-500">
 
             {/* Inner Card */}
             <div className="h-full bg-slate-50/90 backdrop-blur-xl rounded-3xl p-8 flex flex-col justify-between shadow-md group-hover:shadow-2xl transition-all duration-500">
 
               {/* Icon */}
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-slate-50 flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:shadow-lg transition">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-300 to-slate-50 flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 group-hover:shadow-lg transition">
                 <c.icon className="w-7 h-7 text-[#E92247]" />
               </div>
 

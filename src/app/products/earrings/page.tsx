@@ -158,6 +158,23 @@ export default function EarringsPage() {
     toast.success(`${product.name} added to cart!`);
   };
 
+  const handleBuyNow = (product: Product, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+      collection: product.category,
+      collectionSlug: "earrings",
+    });
+    toast.success(`${product.name} added to cart! Redirecting to checkout...`);
+    setTimeout(() => {
+      router.push("/checkout");
+    }, 1000);
+  };
+
   const handleProductClick = (productId: string) => {
     router.push(`/products/earrings/${productId}`);
   };
@@ -280,12 +297,12 @@ export default function EarringsPage() {
                 Showing {filteredEarrings.length} items
               </h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredEarrings.map((earring) => (
             <div 
               key={earring.id}
               onClick={() => handleProductClick(earring.id)}
-              className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer"
+              className="group bg-white overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer"
             >
               {/* Image Container */}
               <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
@@ -325,17 +342,7 @@ export default function EarringsPage() {
                 <h3 className="font-serif text-lg text-gray-900 mb-2 group-hover:text-[#E92247] transition-colors">
                   {earring.name}
                 </h3>
-                <p className="text-gray-500 text-sm mb-3 line-clamp-2">
-                  {earring.description}
-                </p>
                 
-                {/* Weight & Purity */}
-                <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
-                  <span>{earring.weight}</span>
-                  <span>•</span>
-                  <span>{earring.purity}</span>
-                </div>
-
                 {/* Price */}
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-xl font-bold text-[#E92247]">
@@ -349,13 +356,21 @@ export default function EarringsPage() {
                 </div>
 
                 {/* Add to Cart Button - mt-auto pushes to bottom */}
-                <button 
-                  onClick={(e) => handleAddToCart(earring, e)}
-                  className="w-full flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-3 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium mt-auto"
-                >
-                  <ShoppingCart className="w-4 h-4" />
-                  Add to Cart
-                </button>
+                <div className="flex gap-2 mt-auto">
+                  <button 
+                    onClick={(e) => handleAddToCart(earring, e)}
+                    className="flex-1 flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-2 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium text-sm"
+                  >
+                    <ShoppingCart className="w-4 h-4" />
+                    Add to Cart
+                  </button>
+                  <button 
+                    onClick={(e) => handleBuyNow(earring, e)}
+                    className="flex-1 bg-[#E92247] text-white py-2 rounded-xl hover:bg-[#d11f3f] transition-colors font-medium text-sm"
+                  >
+                    Buy Now
+                  </button>
+                </div>
               </div>
             </div>
           ))}

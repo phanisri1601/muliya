@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ChevronRight, ShoppingCart, Heart, Share2, Truck, Shield, RefreshCw, Check } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
 import { toast } from "sonner";
@@ -146,6 +146,7 @@ const diamondBangles: Product[] = [
 
 export default function DiamondBangleDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
 
@@ -166,6 +167,14 @@ export default function DiamondBangleDetailPage() {
   const handleAddToCart = () => {
     addToCart({ id: product.id, name: product.name, price: product.price, originalPrice: product.originalPrice, image: product.image, collection: product.category, collectionSlug: "diamond-bangles" });
     toast.success(`${product.name} added to cart!`);
+  };
+
+  const handleBuyNow = () => {
+    addToCart({ id: product.id, name: product.name, price: product.price, originalPrice: product.originalPrice, image: product.image, collection: product.category, collectionSlug: "diamond-bangles" });
+    toast.success(`${product.name} added to cart! Redirecting to checkout...`);
+    setTimeout(() => {
+      router.push("/checkout");
+    }, 1000);
   };
 
   const discount = product.originalPrice ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
@@ -230,7 +239,8 @@ export default function DiamondBangleDetailPage() {
             </div>
 
             <div className="flex gap-3 pt-4">
-              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-[#E92247] text-white py-4 rounded-xl hover:bg-[#c91a3d] transition-colors font-medium"><ShoppingCart className="w-5 h-5" />Add to Cart</button>
+              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-4 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium"><ShoppingCart className="w-5 h-5" />Add to Cart</button>
+              <button onClick={handleBuyNow} className="flex-1 flex items-center justify-center gap-2 bg-[#E92247] text-white py-4 rounded-xl hover:bg-[#c91a3d] transition-colors font-medium">Buy Now</button>
               <button className="w-14 h-14 border-2 border-gray-200 rounded-xl flex items-center justify-center text-gray-600 hover:border-[#E92247] hover:text-[#E92247] transition-colors"><Heart className="w-6 h-6" /></button>
               <button className="w-14 h-14 border-2 border-gray-200 rounded-xl flex items-center justify-center text-gray-600 hover:border-[#E92247] hover:text-[#E92247] transition-colors"><Share2 className="w-6 h-6" /></button>
             </div>
@@ -243,24 +253,171 @@ export default function DiamondBangleDetailPage() {
           </div>
         </div>
 
+        {/* Price Breakup */}
+        <div className="mt-12 md:mt-16">
+          <h2 className="text-xl font-serif text-gray-900 mb-6">Price Breakup</h2>
+          <div className="bg-gray-50 rounded-xl p-6">
+            <div className="space-y-3">
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Gold Rate (per gram)</span>
+                <span className="text-gray-900 font-medium">Rs. 6,500</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Gold Weight</span>
+                <span className="text-gray-900 font-medium">18.5g</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Diamond Value</span>
+                <span className="text-gray-900 font-medium">Rs. 85,000</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Making Charges</span>
+                <span className="text-gray-900 font-medium">Rs. 15,000</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">GST (3%)</span>
+                <span className="text-gray-900 font-medium">Rs. 3,555</span>
+              </div>
+              <div className="border-t pt-3 mt-3">
+                <div className="flex justify-between">
+                  <span className="text-gray-900 font-medium">Total Price</span>
+                  <span className="text-xl font-bold text-[#E92247]">Rs. {product.price.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Product Details */}
         <div className="mt-12 md:mt-16">
           <h2 className="text-xl font-serif text-gray-900 mb-6">Product Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-gray-50 rounded-xl p-6">
               <h3 className="font-medium text-gray-900 mb-4">Specifications</h3>
               <ul className="space-y-3">
-                <li className="flex justify-between text-sm"><span className="text-gray-600">Product Code</span><span className="text-gray-900 font-medium">{product.id.toUpperCase()}</span></li>
-                <li className="flex justify-between text-sm"><span className="text-gray-600">Category</span><span className="text-gray-900 font-medium">{product.category}</span></li>
-                <li className="flex justify-between text-sm"><span className="text-gray-600">Material</span><span className="text-gray-900 font-medium">{product.purity}</span></li>
-                <li className="flex justify-between text-sm"><span className="text-gray-600">Weight</span><span className="text-gray-900 font-medium">{product.weight}</span></li>
+                <li className="flex justify-between text-sm">
+                  <span className="text-gray-600">Product Code</span>
+                  <span className="text-gray-900 font-medium">{product.id.toUpperCase()}</span>
+                </li>
+                <li className="flex justify-between text-sm">
+                  <span className="text-gray-600">Category</span>
+                  <span className="text-gray-900 font-medium">{product.category}</span>
+                </li>
+                <li className="flex justify-between text-sm">
+                  <span className="text-gray-600">Material</span>
+                  <span className="text-gray-900 font-medium">{product.purity}</span>
+                </li>
+                <li className="flex justify-between text-sm">
+                  <span className="text-gray-600">Gold Weight</span>
+                  <span className="text-gray-900 font-medium">{product.weight}</span>
+                </li>
+                <li className="flex justify-between text-sm">
+                  <span className="text-gray-600">Diamond Weight</span>
+                  <span className="text-gray-900 font-medium">1.85 ct</span>
+                </li>
+                <li className="flex justify-between text-sm">
+                  <span className="text-gray-600">Collection</span>
+                  <span className="text-gray-900 font-medium">Amuliya Diamonds</span>
+                </li>
               </ul>
             </div>
             <div className="bg-gray-50 rounded-xl p-6">
               <h3 className="font-medium text-gray-900 mb-4">Highlights</h3>
               <ul className="space-y-2">
-                {product.details?.map((detail, index) => (<li key={index} className="flex items-start gap-2 text-sm text-gray-700"><Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />{detail}</li>))}
+                {product.details?.map((detail, index) => (
+                  <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
+                    <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    {detail}
+                  </li>
+                ))}
+                <li className="flex items-start gap-2 text-sm text-gray-700">
+                  <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  IGI Certified Diamonds
+                </li>
+                <li className="flex items-start gap-2 text-sm text-gray-700">
+                  <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  Lifetime Exchange Policy
+                </li>
+                <li className="flex items-start gap-2 text-sm text-gray-700">
+                  <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  BIS Hallmarked Gold
+                </li>
               </ul>
             </div>
+          </div>
+        </div>
+
+        {/* Diamond Details */}
+        <div className="mt-12 md:mt-16">
+          <h2 className="text-xl font-serif text-gray-900 mb-6">Diamond Details</h2>
+          <div className="bg-gray-50 rounded-xl p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="font-medium text-gray-900 mb-4">Main Diamond</h3>
+                <ul className="space-y-3">
+                  <li className="flex justify-between text-sm">
+                    <span className="text-gray-600">Shape</span>
+                    <span className="text-gray-900 font-medium">Round</span>
+                  </li>
+                  <li className="flex justify-between text-sm">
+                    <span className="text-gray-600">Carat Weight</span>
+                    <span className="text-gray-900 font-medium">1.20 ct</span>
+                  </li>
+                  <li className="flex justify-between text-sm">
+                    <span className="text-gray-600">Color</span>
+                    <span className="text-gray-900 font-medium">G</span>
+                  </li>
+                  <li className="flex justify-between text-sm">
+                    <span className="text-gray-600">Clarity</span>
+                    <span className="text-gray-900 font-medium">VS1</span>
+                  </li>
+                  <li className="flex justify-between text-sm">
+                    <span className="text-gray-600">Cut</span>
+                    <span className="text-gray-900 font-medium">Excellent</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-medium text-gray-900 mb-4">Side Diamonds</h3>
+                <ul className="space-y-3">
+                  <li className="flex justify-between text-sm">
+                    <span className="text-gray-600">Number of Diamonds</span>
+                    <span className="text-gray-900 font-medium">65</span>
+                  </li>
+                  <li className="flex justify-between text-sm">
+                    <span className="text-gray-600">Total Carat Weight</span>
+                    <span className="text-gray-900 font-medium">0.65 ct</span>
+                  </li>
+                  <li className="flex justify-between text-sm">
+                    <span className="text-gray-600">Color</span>
+                    <span className="text-gray-900 font-medium">G-H</span>
+                  </li>
+                  <li className="flex justify-between text-sm">
+                    <span className="text-gray-600">Clarity</span>
+                    <span className="text-gray-900 font-medium">VS2-SI1</span>
+                  </li>
+                  <li className="flex justify-between text-sm">
+                    <span className="text-gray-600">Setting</span>
+                    <span className="text-gray-900 font-medium">Pave</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Actions */}
+        <div className="mt-12 md:mt-16">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button className="flex-1 bg-[#E92247] text-white py-3 px-6 rounded-xl hover:bg-[#c91a3d] transition-colors font-medium">
+              Book Virtual Appointment
+            </button>
+            <button className="flex-1 border-2 border-[#E92247] text-[#E92247] py-3 px-6 rounded-xl hover:bg-[#E92247] hover:text-white transition-colors font-medium">
+              Request Callback
+            </button>
+            <button className="flex-1 border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-xl hover:border-[#E92247] hover:text-[#E92247] transition-colors font-medium">
+              Visit Store
+            </button>
           </div>
         </div>
       </div>

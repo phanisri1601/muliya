@@ -18,7 +18,6 @@ import {
   Image as ImageIcon,
   Globe,
   Video,
-  MoreHorizontal,
   LogOut,
 } from "lucide-react";
 import { Button } from "./ui/button";
@@ -144,7 +143,7 @@ const desktopNav = [
   { label: "Showrooms", href: "/store-locator", icon: Store },
   { label: "Gallery", href: "https://gallery.muliya.in", icon: ImageIcon },
   { label: "Virtual Tour", href: "/blog", icon: Globe },
-  { label: "More", href: "/about", icon: MoreHorizontal },
+  { label: "More", href: "/about", icon: undefined },
 ] as const;
 
 export function Header() {
@@ -245,6 +244,7 @@ export function Header() {
       {/* Top Row */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex items-center justify-between gap-6">
+          {/* Logo */}
           <Link href="/" className="flex items-center">
             <img
               src="/images/Logo-1.svg"
@@ -260,8 +260,9 @@ export function Header() {
             ) : null}
           </Link>
 
+          {/* Center Navigation - Hidden on mobile */}
           <div className="hidden lg:flex items-center gap-10 text-sm text-gray-700">
-            {/* <Link
+            <Link
               href="/policy/gold-scheme"
               className="flex items-center gap-2 hover:text-[#E92247] transition-colors"
             >
@@ -274,135 +275,138 @@ export function Header() {
             >
               <Video className="w-4 h-4 text-[#E92247]" />
               <span>Scheme Payments</span>
-            </Link> */}
+            </Link>
           </div>
 
-          {/* Search */}
-          <form
-            onSubmit={handleSearch}
-            className="flex items-center gap-0 w-full max-w-[390px] ml-auto"
-          >
-            <div className="relative w-full">
-              <input
-                type="search"
-                placeholder="Search for gold jewellery, diamond jewellery and more"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-10 rounded-l-md border border-gray-200 pl-4 pr-4 text-sm outline-none focus:ring-2 focus:ring-[#E92247]/30"
-              />
-            </div>
-            <button
-              type="submit"
-              className="h-10 w-11 bg-[#E92247] text-white flex items-center justify-center rounded-r-md"
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-3 ml-auto">
+            {/* Search */}
+            <form
+              onSubmit={handleSearch}
+              className="flex items-center gap-0"
             >
-              <Search className="w-4 h-4" />
-            </button>
-          </form>
-
-          {/* Cart */}
-          <Link href="/cart" className="relative hidden lg:flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition-colors">
-            <ShoppingCart className="w-5 h-5 text-gray-700" />
-            {totalItems > 0 && (
-              <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-[#E92247] text-white border-0">
-                {totalItems}
-              </Badge>
-            )}
-          </Link>
-
-          {/* User Auth */}
-          {isAuthenticated ? (
-            <div className="hidden lg:flex items-center gap-2">
-              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50">
-                <div className="w-8 h-8 bg-[#E92247] rounded-full flex items-center justify-center text-white font-medium">
-                  {user?.name.charAt(0).toUpperCase()}
-                </div>
-                <span className="text-sm font-medium text-gray-700">{user?.name}</span>
+              <div className="relative">
+                <input
+                  type="search"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-40 md:w-64 h-10 rounded-l-md border border-gray-200 pl-4 pr-4 text-sm outline-none focus:ring-2 focus:ring-[#E92247]/30"
+                />
               </div>
               <button
-                onClick={logout}
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-600"
-                title="Logout"
+                type="submit"
+                className="h-10 w-11 bg-[#E92247] text-white flex items-center justify-center rounded-r-md"
               >
-                <LogOut className="w-5 h-5" />
+                <Search className="w-4 h-4" />
               </button>
-            </div>
-          ) : (
-            <div className="hidden lg:flex items-center gap-3">
-              <Link
-                href="/login"
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-[#E92247] transition-colors whitespace-nowrap"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/register"
-                className="px-5 py-2 text-sm font-medium bg-[#E92247] text-white rounded-full hover:bg-[#d11f3f] transition-colors whitespace-nowrap"
-              >
-                Register
-              </Link>
-            </div>
-          )}
+            </form>
 
-          {/* Mobile Menu */}
-          <div className="lg:hidden flex items-center gap-2">
-            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="w-6 h-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-80">
-                <SheetHeader>
-                  <SheetTitle className="flex items-center gap-2 text-[#E92247]">
-                    <img
-                      src="/images/Logo-1.svg"
-                      alt="Muliya"
-                      loading="eager"
-                      className="h-7 w-auto object-contain"
-                      onError={() => setLogoError(true)}
-                    />
-                    {logoError ? (
-                      <span className="sm:inline hidden font-serif text-base">
-                        Muliya
-                      </span>
-                    ) : null}
-                  </SheetTitle>
-                </SheetHeader>
-                <nav className="flex flex-col gap-4 mt-8">
-                  {categories.map((category) => (
+            {/* Cart */}
+            <Link href="/cart" className="relative hidden lg:flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition-colors">
+              <ShoppingCart className="w-5 h-5 text-gray-700" />
+              {totalItems > 0 && (
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-[#E92247] text-white border-0">
+                  {totalItems}
+                </Badge>
+              )}
+            </Link>
+
+            {/* User Auth */}
+            {isAuthenticated ? (
+              <div className="hidden lg:flex items-center gap-2">
+                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50">
+                  <div className="w-8 h-8 bg-[#E92247] rounded-full flex items-center justify-center text-white font-medium">
+                    {user?.name.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">{user?.name}</span>
+                </div>
+                <button
+                  onClick={logout}
+                  className="p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-600"
+                  title="Logout"
+                >
+                  <LogOut className="w-5 h-5" />
+                </button>
+              </div>
+            ) : (
+              <div className="hidden lg:flex items-center gap-3">
+                <Link
+                  href="/login"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-[#E92247] transition-colors whitespace-nowrap"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/register"
+                  className="px-5 py-2 text-sm font-medium bg-[#E92247] text-white rounded-full hover:bg-[#d11f3f] transition-colors whitespace-nowrap"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
+
+            {/* Mobile Menu */}
+            <div className="lg:hidden flex items-center gap-2">
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-80">
+                  <SheetHeader>
+                    <SheetTitle className="flex items-center gap-2 text-[#E92247]">
+                      <img
+                        src="/images/Logo-1.svg"
+                        alt="Muliya"
+                        loading="eager"
+                        className="h-7 w-auto object-contain"
+                        onError={() => setLogoError(true)}
+                      />
+                      {logoError ? (
+                        <span className="sm:inline hidden font-serif text-base">
+                          Muliya
+                        </span>
+                      ) : null}
+                    </SheetTitle>
+                  </SheetHeader>
+                  <nav className="flex flex-col gap-4 mt-8">
+                    {categories.map((category) => (
+                      <Link
+                        key={category.slug}
+                        href={`/products/${category.slug}`}
+                        className="text-gray-700 hover:text-[#E92247] py-2 transition-colors"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {category.name}
+                      </Link>
+                    ))}
                     <Link
-                      key={category.slug}
-                      href={`/products/${category.slug}`}
+                      href="/store-locator"
                       className="text-gray-700 hover:text-[#E92247] py-2 transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      {category.name}
+                      Store Locator
                     </Link>
-                  ))}
-                  <Link
-                    href="/store-locator"
-                    className="text-gray-700 hover:text-[#E92247] py-2 transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Store Locator
-                  </Link>
-                  <Link
-                    href="/about"
-                    className="text-gray-700 hover:text-[#E92247] py-2 transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    About
-                  </Link>
-                  <Link
-                    href="/blog"
-                    className="text-gray-700 hover:text-[#E92247] py-2 transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Blog
-                  </Link>
-                </nav>
-              </SheetContent>
-            </Sheet>
+                    <Link
+                      href="/about"
+                      className="text-gray-700 hover:text-[#E92247] py-2 transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      About
+                    </Link>
+                    <Link
+                      href="/blog"
+                      className="text-gray-700 hover:text-[#E92247] py-2 transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Blog
+                    </Link>
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </div>
@@ -439,7 +443,7 @@ export function Header() {
                       href={item.href}
                       className="flex items-center gap-2 hover:text-[#E92247] transition-colors"
                     >
-                      <Icon className="w-4 h-4 text-[#E92247]" />
+                      {Icon && <Icon className="w-4 h-4 text-[#E92247]" />}
                       <span className="whitespace-nowrap">{item.label}</span>
                       {(item.label === "Gold" ||
                         item.label === "Silver" ||

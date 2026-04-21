@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ChevronRight, ShoppingCart, Heart, Share2, Truck, Shield, RefreshCw, Check } from "lucide-react";
 import { useCart } from "@/app/context/CartContext";
 import { toast } from "sonner";
@@ -146,6 +146,7 @@ const earrings: Product[] = [
 
 export default function EarringDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
 
@@ -176,6 +177,22 @@ export default function EarringDetailPage() {
       collectionSlug: "earrings",
     });
     toast.success(`${product.name} added to cart!`);
+  };
+
+  const handleBuyNow = () => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+      collection: product.category,
+      collectionSlug: "earrings",
+    });
+    toast.success(`${product.name} added to cart! Redirecting to checkout...`);
+    setTimeout(() => {
+      router.push("/checkout");
+    }, 1000);
   };
 
   const discount = product.originalPrice 
@@ -294,10 +311,16 @@ export default function EarringDetailPage() {
             <div className="flex gap-3 pt-4">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 flex items-center justify-center gap-2 bg-[#E92247] text-white py-4 rounded-xl hover:bg-[#c91a3d] transition-colors font-medium"
+                className="flex-1 flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-4 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium"
               >
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
+              </button>
+              <button
+                onClick={handleBuyNow}
+                className="flex-1 flex items-center justify-center gap-2 bg-[#E92247] text-white py-4 rounded-xl hover:bg-[#c91a3d] transition-colors font-medium"
+              >
+                Buy Now
               </button>
               <button className="w-14 h-14 border-2 border-gray-200 rounded-xl flex items-center justify-center text-gray-600 hover:border-[#E92247] hover:text-[#E92247] transition-colors">
                 <Heart className="w-6 h-6" />
@@ -326,6 +349,37 @@ export default function EarringDetailPage() {
         </div>
 
         {/* Product Details */}
+        {/* Price Breakup */}
+        <div className="mt-12 md:mt-16">
+          <h2 className="text-xl font-serif text-gray-900 mb-6">Price Breakup</h2>
+          <div className="bg-gray-50 rounded-xl p-6">
+            <div className="space-y-3">
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Gold Rate (per gram)</span>
+                <span className="text-gray-900 font-medium">Rs. 6,500</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Gold Weight</span>
+                <span className="text-gray-900 font-medium">{product.weight}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">Making Charges</span>
+                <span className="text-gray-900 font-medium">Rs. {Math.round(product.price * 0.15).toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-600">GST (3%)</span>
+                <span className="text-gray-900 font-medium">Rs. {Math.round(product.price * 0.03).toLocaleString()}</span>
+              </div>
+              <div className="border-t pt-3 mt-3">
+                <div className="flex justify-between">
+                  <span className="text-gray-900 font-medium">Total Price</span>
+                  <span className="text-xl font-bold text-[#E92247]">Rs. {product.price.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="mt-12 md:mt-16">
           <h2 className="text-xl font-serif text-gray-900 mb-6">Product Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

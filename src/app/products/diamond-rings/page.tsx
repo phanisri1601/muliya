@@ -150,6 +150,15 @@ export default function DiamondRingsPage() {
     toast.success(`${product.name} added to cart!`);
   };
 
+  const handleBuyNow = (product: Product, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    addToCart({ id: product.id, name: product.name, price: product.price, originalPrice: product.originalPrice, image: product.image, collection: product.category, collectionSlug: "diamond-rings" });
+    toast.success(`${product.name} added to cart! Redirecting to checkout...`);
+    setTimeout(() => {
+      router.push("/checkout");
+    }, 1000);
+  };
+
   const handleProductClick = (productId: string) => {
     router.push(`/products/diamond-rings/${productId}`);
   };
@@ -243,10 +252,8 @@ export default function DiamondRingsPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-serif text-gray-900">
-            Showing {filteredRings.length} items
-          </h2>
+        <div className="flex gap-8">
+          {/* Sidebar - Desktop */}
           <ProductFilter
             onSortChange={handleSortChange}
             onPriceRangeChange={handlePriceRangeChange}
@@ -255,10 +262,17 @@ export default function DiamondRingsPage() {
             onDiscountChange={handleDiscountChange}
             onClearFilters={handleClearFilters}
           />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          
+          {/* Products */}
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-serif text-gray-900">
+                Showing {filteredRings.length} items
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRings.map((ring) => (
-            <div key={ring.id} onClick={() => handleProductClick(ring.id)} className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
+            <div key={ring.id} onClick={() => handleProductClick(ring.id)} className="group bg-white overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer">
               <div className="relative aspect-square overflow-hidden bg-gray-100 flex-shrink-0">
                 <ImageWithFallbackNext src={ring.image} alt={ring.name} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
                 <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
@@ -269,16 +283,20 @@ export default function DiamondRingsPage() {
               </div>
               <div className="p-5 flex flex-col flex-grow">
                 <h3 className="font-serif text-lg text-gray-900 mb-2 group-hover:text-[#E92247] transition-colors">{ring.name}</h3>
-                <p className="text-gray-500 text-sm mb-3 line-clamp-2">{ring.description}</p>
                 <div className="flex items-center gap-3 text-xs text-gray-400 mb-3"><span>{ring.weight}</span><span>•</span><span>{ring.purity}</span></div>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-xl font-bold text-[#E92247]">₹{formatINR(ring.price)}</span>
                   {ring.originalPrice && <span className="text-sm text-gray-400 line-through">₹{formatINR(ring.originalPrice)}</span>}
                 </div>
-                <button onClick={(e) => handleAddToCart(ring, e)} className="w-full flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-3 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium mt-auto"><ShoppingCart className="w-4 h-4" />Add to Cart</button>
+                <div className="flex gap-2 mt-auto">
+                  <button onClick={(e) => handleAddToCart(ring, e)} className="flex-1 flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 py-2 rounded-xl hover:bg-[#E92247] hover:text-white hover:border-[#E92247] transition-colors font-medium text-sm"><ShoppingCart className="w-4 h-4" />Add to Cart</button>
+                  <button onClick={(e) => handleBuyNow(ring, e)} className="flex-1 bg-[#E92247] text-white py-2 rounded-xl hover:bg-[#d11f3f] transition-colors font-medium text-sm">Buy Now</button>
+                </div>
               </div>
             </div>
           ))}
+        </div>
+        </div>
         </div>
       </div>
     </main>
