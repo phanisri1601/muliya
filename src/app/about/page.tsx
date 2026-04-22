@@ -177,7 +177,7 @@ export default function AboutPage() {
               <div className="flex flex-col items-center text-center">
                 <div className="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-lg border-4 border-gray-100">
                   <img
-                    src="/images/prasad.png"
+                    src="/images/prasad-removebg-preview.png"
                     alt="Shri Keshava Prasad Muliya"
                     className="w-full h-full object-cover"
                   />
@@ -201,7 +201,7 @@ export default function AboutPage() {
               <div className="flex flex-col items-center text-center">
                 <div className="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-lg border-4 border-gray-100">
                   <img
-                    src="/images/krishna.png"
+                    src="/images/krishna-removebg-preview.png"
                     alt="Shri Krishna Narayana Muliya"
                     className="w-full h-full object-cover"
                   />
